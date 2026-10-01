@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tract Calibrator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#ece2d0;font-family:'JetBrains Mono',Menlo,Consolas,monospace;
+  color:#2b2018;display:grid;grid-template-columns:1fr 310px;height:100vh;overflow:hidden}
+#stage{position:relative;overflow:hidden}
+#vt{display:block;width:100%;height:100%}
+#drop{position:absolute;inset:24px;border:2px dashed #b5563a;border-radius:20px;
+  display:grid;place-items:center;text-align:center;background:rgba(241,231,215,.92);
+  cursor:pointer;transition:.2s;z-index:5}
+#drop.hide{display:none}
+#drop:hover{background:#fff}
+#drop b{display:block;font-size:16px;letter-spacing:.08em;margin-bottom:8px}
+#drop p{font-size:11px;color:#6d5a48;line-height:1.7}
+#drop input{display:none}
+aside{border-left:1px solid rgba(43,32,24,.18);overflow-y:auto;padding:16px 18px 40px;
+  background:#f6efe1}
+h3{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#b5563a;
+  margin:18px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(43,32,24,.16)}
+h3:first-child{margin-top:0}
+.row{display:grid;grid-template-columns:58px 1fr 52px;gap:8px;align-items:center;
+  margin-bottom:7px;font-size:10px}
+.row label{color:#6d5a48;letter-spacing:.08em}
+.row input[type=range]{width:100%;accent-color:#b5563a;height:3px}
+.row output{text-align:right;color:#2b2018;font-size:9.5px}
+.btn{width:100%;padding:10px;margin-top:8px;border:none;cursor:pointer;
+  font-family:inherit;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  border-radius:40px;transition:.18s}
+.btn.p{background:#b5563a;color:#ece2d0;font-weight:700}
+.btn.p:hover{background:#2b2018}
+.btn.s{background:rgba(43,32,24,.1);color:#2b2018}
+.btn.s:hover{background:rgba(43,32,24,.2)}
+.btn.on{background:#d2a03f;color:#2b2018}
+#out{width:100%;height:132px;margin-top:10px;background:#fff;border:1px solid rgba(43,32,24,.2);
+  font-family:inherit;font-size:10px;padding:9px;resize:none;color:#2b2018;border-radius:8px}
+#info{font-size:9.5px;color:#6d5a48;line-height:1.7;margin-top:10px;
+  padding-top:10px;border-top:1px dashed rgba(43,32,24,.2)}
+#info b{color:#b5563a}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="vt"></canvas>
+  <label id="drop">
+    <input type="file" id="file" accept=".glb,.gltf">
+    <span><b>DROP YOUR .GLB HERE</b>
+    <p>or click to browse. Nothing uploads anywhere,<br>this stays on your machine.</p></span>
+  </label>
+</div>
+
+<aside>
+  <h3>Uniform scale</h3>
+  <div class="row"><label>Scale</label><input type="range" id="s" min="-3" max="3" step="0.001" value="0"><output id="so">1</output></div>
+
+  <h3>Rotation (degrees)</h3>
+  <div class="row"><label>Rot X</label><input type="range" id="rx" min="-180" max="180" step="0.5" value="0"><output id="rxo">0</output></div>
+  <div class="row"><label>Rot Y</label><input type="range" id="ry" min="-180" max="180" step="0.5" value="0"><output id="ryo">0</output></div>
+  <div class="row"><label>Rot Z</label><input type="range" id="rz" min="-180" max="180" step="0.5" value="0"><output id="rzo">0</output></div>
+
+  <h3>Position</h3>
+  <div class="row"><label>Pos X</label><input type="range" id="px" min="-4" max="4" step="0.005" value="0"><output id="pxo">0</output></div>
+  <div class="row"><label>Pos Y</label><input type="range" id="py" min="-4" max="4" step="0.005" value="0"><output id="pyo">0</output></div>
+  <div class="row"><label>Pos Z</label><input type="range" id="pz" min="-4" max="4" step="0.005" value="0"><output id="pzo">0</output></div>
+
+  <button class="btn p" id="fit">Auto-fit bounds</button>
+  <button class="btn s" id="spin">Toggle auto-spin</button>
+  <button class="btn s" id="ascii">ASCII preview: ON</button>
+  <button class="btn s" id="copy">Copy settings</button>
+  <textarea id="out" readonly></textarea>
+  <div id="info"></div>
+</aside>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
+} }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const stage = document.getElementById('stage');
+const canvas = document.getElementById('vt');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:false });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xece2d0);
+const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 200);
+camera.position.set(0, 0.2, 9.3);
+camera.lookAt(0, -0.2, 0);
+
+scene.add(new THREE.AmbientLight(0xfff2dd, 1.15));
+const k1 = new THREE.DirectionalLight(0xfff0d0, 1.5); k1.position.set(5,6,7); scene.add(k1);
+const k2 = new THREE.DirectionalLight(0xcfe0ee, 0.55); k2.position.set(-7,-3,4); scene.add(k2);
+const k3 = new THREE.PointLight(0xffd9a0, 14, 30, 0.7); k3.position.set(-4,3,-5); scene.add(k3);
+const k4 = new THREE.PointLight(0xe6ffc0, 7, 24, 0.8); k4.position.set(4,-4,-4); scene.add(k4);
+
+const pivot = new THREE.Group();
+scene.add(pivot);
+let model = null, meshNames = [], triCount = 0;
+
+const RAMP = ' .·:;~=-+*x#%@░▒▓█';
+const ATX = 16, ATY = Math.ceil(RAMP.length / ATX);
+const atlas = document.createElement('canvas');
+atlas.width = ATX*64; atlas.height = ATY*64;
+{
+  const c = atlas.getContext('2d');
+  c.fillStyle = '#000'; c.fillRect(0,0,atlas.width,atlas.height);
+  c.font = 'bold 50px Menlo,Consolas,monospace';
+  c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#fff';
+  c.shadowColor = 'rgba(255,255,255,.45)'; c.shadowBlur = 3;
+  for (let i=0;i<RAMP.length;i++) c.fillText(RAMP[i], (i%ATX)*64+32, Math.floor(i/ATX)*64+34);
+}
+const glyphTex = new THREE.CanvasTexture(atlas);
+glyphTex.flipY = false;
+glyphTex.minFilter = THREE.LinearFilter;
+glyphTex.magFilter = THREE.LinearFilter;
+glyphTex.generateMipmaps = false;
+
+const VS = `varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.0,1.0); }`;
+const DSF = `
+varying vec2 vUv; uniform sampler2D tScene; uniform vec2 uGrid;
+float lum(vec3 c){ return dot(c,vec3(0.299,0.587,0.114)); }
+void main(){
+  vec2 cell=floor(vUv*uGrid);
+  vec2 base=(cell+0.5)/uGrid;
+  vec2 o=0.50/uGrid;
+  vec3 acc=vec3(0.0); float mn=1.0; float mx=0.0;
+  for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++){
+    vec3 s=texture2D(tScene,base+vec2(float(i),float(j))*o).rgb;
+    float l=lum(s);
+    acc+=s; mn=min(mn,l); mx=max(mx,l);
+  }
+  gl_FragColor=vec4(acc/9.0, mx-mn);
+}`;
+const CSF = `
+varying vec2 vUv;
+uniform sampler2D tGrid, tGlyph;
+uniform vec2 uGrid, uAtlas;
+float lum(vec3 c){ return dot(c,vec3(0.299,0.587,0.114)); }
+float hash(vec2 p){ p=fract(p*vec2(0.1031,0.10369)); p+=dot(p,p.yx+33.33); return fract((p.x+p.y)*p.y); }
+float gl(float idx, vec2 f){
+  vec2 ac=vec2(mod(idx,uAtlas.x),floor(idx/uAtlas.x));
+  return texture2D(tGlyph,(ac+vec2(f.x,1.0-f.y))/uAtlas).r;
+}
+void main(){
+  vec2 gp=vUv*uGrid;
+  vec2 cell=floor(gp); vec2 f=fract(gp);
+  vec4 g=texture2D(tGrid,(cell+0.5)/uGrid);
+  vec3 col=g.rgb; float rng=g.a;
+  float d=clamp(1.0-lum(col),0.0,1.0);
+  d=pow(d,0.46);
+  d=mix(d,1.0,clamp(rng*2.1,0.0,1.0)*0.50);
+  d+=(hash(cell)-0.5)*0.042;
+  float ci=floor(clamp(d*13.0,0.0,12.999));
+  float a=gl(ci,f);
+  vec3 ink=col;
+  float l=lum(ink);
+  ink=mix(vec3(l),ink,1.85);
+  ink=pow(max(ink,vec3(0.0)),vec3(1.55))*0.80;
+  vec3 paper=vec3(0.925,0.888,0.822);
+  vec3 outc=mix(paper,ink,a*0.97);
+  float gr=hash(vUv*vec2(311.0,197.0));
+  outc+=(gr-0.5)*0.015;
+  gl_FragColor=vec4(outc,1.0);
+}`;
+
+const dsMat = new THREE.ShaderMaterial({
+  uniforms:{ tScene:{value:null}, uGrid:{value:new THREE.Vector2(1,1)} },
+  vertexShader:VS, fragmentShader:DSF, depthTest:false, depthWrite:false });
+const csMat = new THREE.ShaderMaterial({
+  uniforms:{ tGrid:{value:null}, tGlyph:{value:glyphTex},
+             uGrid:{value:new THREE.Vector2(1,1)}, uAtlas:{value:new THREE.Vector2(ATX,ATY)} },
+  vertexShader:VS, fragmentShader:CSF, depthTest:false, depthWrite:false });
+
+const qScene = new THREE.Scene();
+const qCam = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+const quad = new THREE.Mesh(new THREE.PlaneGeometry(2,2), dsMat);
+quad.frustumCulled = false;
+qScene.add(quad);
+
+const CELL = 1.5, SS = 1.7;
+let W=1, H=1, cols=1, rows=1, sceneRT=null, gridRT=null;
+function build(){
+  W = Math.max(2, stage.clientWidth);
+  H = Math.max(2, stage.clientHeight);
+  renderer.setSize(W, H, false);
+  camera.aspect = W/H; camera.updateProjectionMatrix();
+  cols = Math.max(60, Math.floor(W/CELL));
+  rows = Math.max(48, Math.floor(H/CELL));
+  const bw = Math.round(W*SS), bh = Math.round(H*SS);
+  if (!sceneRT) {
+    sceneRT = new THREE.WebGLRenderTarget(bw,bh,{minFilter:THREE.LinearFilter,magFilter:THREE.LinearFilter,depthBuffer:true});
+    gridRT  = new THREE.WebGLRenderTarget(cols,rows,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,depthBuffer:false});
+  } else { sceneRT.setSize(bw,bh); gridRT.setSize(cols,rows); }
+  dsMat.uniforms.tScene.value = sceneRT.texture;
+  dsMat.uniforms.uGrid.value.set(cols, rows);
+  csMat.uniforms.tGrid.value = gridRT.texture;
+  csMat.uniforms.uGrid.value.set(cols, rows);
+}
+
+let asciiOn = true;
+const S = {
+  scale: exp => Math.exp(exp),
+  rx: deg => deg*Math.PI/180,
+  ry: deg => deg*Math.PI/180,
+  rz: deg => deg*Math.PI/180,
+  px: v => v, py: v => v, pz: v => v
+};
+const ids = ['s','rx','ry','rz','px','py','pz'];
+const vals = { s:0, rx:0, ry:0, rz:0, px:0, py:0, pz:0 };
+const outs = { s:'so', rx:'rxo', ry:'ryo', rz:'rzo', px:'pxo', py:'pyo', pz:'pzo' };
+
+ids.forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    vals[id] = parseFloat(el.value);
+    document.getElementById(outs[id]).textContent =
+      id === 's' ? S.scale(vals[id]).toFixed(3) : vals[id].toFixed(id==='px'||id==='py'||id==='pz' ? 3 : 1);
+    apply();
+  });
+});
+
+function apply(){
+  if (!model) return;
+  pivot.scale.setScalar(S.scale(vals.s));
+  pivot.rotation.set(S.rx(vals.rx), S.ry(vals.ry), S.rz(vals.rz));
+  pivot.position.set(vals.px, vals.py, vals.pz);
+  writeOut();
+}
+
+function writeOut(){
+  const cfg = {
+    scale: +S.scale(vals.s).toFixed(4),
+    rotDeg: [vals.rx, vals.ry, vals.rz].map(v => +v.toFixed(2)),
+    pos: [vals.px, vals.py, vals.pz].map(v => +v.toFixed(4)),
+    meshes: meshNames,
+    tris: triCount
+  };
+  document.getElementById('out').value = JSON.stringify(cfg, null, 2);
+}
+
+const loader = new GLTFLoader();
+
+function loadFile(file){
+  const url = URL.createObjectURL(file);
+  loader.load(url, gltf => {
+    if (model) { pivot.remove(model); disposeTree(model); }
+    model = gltf.scene;
+    meshNames = [];
+    triCount = 0;
+    model.traverse(o => {
+      if (o.isMesh) {
+        meshNames.push(o.name || '(unnamed)');
+        const idx = o.geometry.index;
+        triCount += idx ? idx.count/3 : o.geometry.attributes.position.count/3;
+        o.material = new THREE.MeshStandardMaterial({
+          color: 0xb87553, roughness: 0.82, metalness: 0.02, side: THREE.DoubleSide
+        });
+      }
+    });
+    model.traverse(o => { if (o.isMesh) o.geometry.computeVertexNormals(); });
+    pivot.add(model);
+    autoFit();
+    apply();
+    document.getElementById('info').innerHTML =
+      `<b>${meshNames.length}</b> meshes · <b>${Math.round(triCount).toLocaleString()}</b> triangles<br>` +
+      meshNames.slice(0,14).join('<br>') +
+      (meshNames.length > 14 ? `<br>...and ${meshNames.length-14} more` : '');
+    document.getElementById('drop').classList.add('hide');
+    URL.revokeObjectURL(url);
+  }, undefined, err => {
+    alert('Could not read that file. Make sure it is a .glb from Blender glTF Binary export.');
+    console.error(err);
+  });
+}
+
+function disposeTree(root){
+  root.traverse(o => {
+    if (o.isMesh) { o.geometry.dispose(); if (Array.isArray(o.material)) o.material.forEach(m=>m.dispose()); else o.material.dispose(); }
+  });
+}
+
+function autoFit(){
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const ctr  = box.getCenter(new THREE.Vector3());
+  const longest = Math.max(size.x, size.y, size.z);
+  const target = 4.6;
+  vals.s = Math.log(target / longest);
+  document.getElementById('s').value = vals.s;
+  document.getElementById('so').textContent = S.scale(vals.s).toFixed(3);
+  pivot.scale.setScalar(S.scale(vals.s));
+  const newBox = new THREE.Box3().setFromObject(model);
+  const newCtr = newBox.getCenter(new THREE.Vector3());
+  vals.px = -newCtr.x; vals.py = -newCtr.y; vals.pz = -newCtr.z;
+  ['px','py','pz'].forEach(k => {
+    document.getElementById(k).value = vals[k];
+    document.getElementById(outs[k]).textContent = vals[k].toFixed(3);
+  });
+  apply();
+}
+
+document.getElementById('file').addEventListener('change', e => {
+  if (e.target.files[0]) loadFile(e.target.files[0]);
+});
+
+const drop = document.getElementById('drop');
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault(); drop.style.background = '#fff';
+}));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault(); drop.style.background = '';
+}));
+document.addEventListener('dragover', e => e.preventDefault());
+document.addEventListener('drop', e => {
+  e.preventDefault();
+  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+
+document.getElementById('fit').addEventListener('click', () => { if (model) autoFit(); });
+
+let spin = true;
+document.getElementById('spin').addEventListener('click', e => {
+  spin = !spin;
+  e.target.classList.toggle('on', !spin);
+});
+
+document.getElementById('ascii').addEventListener('click', e => {
+  asciiOn = !asciiOn;
+  e.target.textContent = 'ASCII preview: ' + (asciiOn ? 'ON' : 'OFF');
+});
+
+document.getElementById('copy').addEventListener('click', () => {
+  const t = document.getElementById('out');
+  t.select(); document.execCommand('copy');
+  const b = document.getElementById('copy');
+  const prev = b.textContent;
+  b.textContent = 'Copied';
+  setTimeout(() => b.textContent = prev, 1200);
+});
+
+let azim = -0.34, dragging = false;
+canvas.addEventListener('pointerdown', e => { dragging = true; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointerup',   () => { dragging = false; });
+canvas.addEventListener('pointermove', e => {
+  if (dragging) azim -= e.movementX * 0.0068;
+});
+
+let last = performance.now();
+function tick(ts){
+  requestAnimationFrame(tick);
+  const dt = Math.min((ts-last)/1000, 0.05); last = ts;
+  if (!dragging && spin) azim += dt * 0.30;
+
+  const R = 9.3;
+  camera.position.set(Math.sin(azim)*R, 0.20, Math.cos(azim)*R);
+  camera.lookAt(0, -0.20, 0);
+
+  if (asciiOn) {
+    renderer.setRenderTarget(sceneRT);
+    renderer.render(scene, camera);
+    quad.material = dsMat;
+    renderer.setRenderTarget(gridRT);
+    renderer.render(qScene, qCam);
+    quad.material = csMat;
+    renderer.setRenderTarget(null);
+    renderer.render(qScene, qCam);
+  } else {
+    renderer.setRenderTarget(null);
+    renderer.render(scene, camera);
+  }
+}
+
+build();
+addEventListener('resize', build);
+requestAnimationFrame(tick);
+requestAnimationFrame(() => { setTimeout(() => alert('Drop a .glb onto the canvas, or click the dashed box to browse.'), 400); });
+</script>
+</body>
+</html>
