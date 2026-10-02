@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Phonetica: A Field Guide to General American English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1&family=Karla:wght@400;500;600;700&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#f1e7d7; --paper2:#ece2d0; --ink:#241a12; --ink2:#3e3024; --ink3:#6d5a48;
+  --clay:#b5563a; --tera:#cd7a52; --sage:#7c8b5f; --must:#d2a03f; --plum:#6d4657;
+  --sand:#e3d2b4;
+  --display:'Fraunces',Georgia,serif; --body:'Karla',system-ui,sans-serif;
+  --ipa:'Gentium Book Plus',Georgia,serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);color:var(--ink);line-height:1.62;overflow-x:hidden;
+  background-color:var(--paper);
+  background-image:
+    radial-gradient(circle at 10% 14%,rgba(205,122,82,.16),transparent 42%),
+    radial-gradient(circle at 90% 8%,rgba(210,160,63,.18),transparent 40%),
+    radial-gradient(circle at 74% 88%,rgba(124,139,95,.14),transparent 44%),
+    radial-gradient(circle at 22% 94%,rgba(109,70,87,.10),transparent 46%);
+  background-attachment:fixed;-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--clay);color:var(--paper)}
+.grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");}
+
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:120;
+  display:flex;align-items:center;gap:24px;max-width:calc(100% - 28px);padding:11px 12px 11px 22px;
+  background:rgba(241,231,215,.88);backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(36,26,18,.16);
+  border-radius:100px 90px 100px 90px/90px 100px 90px 100px;
+  box-shadow:0 10px 34px -14px rgba(36,26,18,.42),inset 0 1px 0 rgba(255,255,255,.6)}
+.brand{font-family:var(--display);font-variation-settings:'SOFT' 70,'WONK' 1;
+  font-weight:700;font-size:19px;letter-spacing:-.015em;white-space:nowrap}
+.brand b{color:var(--clay)}
+.navlinks{display:flex;gap:4px;overflow:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink3);text-decoration:none;white-space:nowrap;padding:8px 13px;transition:.22s;
+  border-radius:60px 50px 60px 50px/50px 60px 50px 60px}
+.navlinks a:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:860px){.navlinks{display:none}}
+
+.hero{padding:132px 26px 0;position:relative;overflow:hidden}
+.hero .sun{position:absolute;top:54px;right:-90px;width:420px;height:420px;opacity:.5;
+  pointer-events:none;animation:spin 150s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero .blob{position:absolute;left:-170px;bottom:-120px;width:470px;height:410px;pointer-events:none;
+  background:radial-gradient(circle at 40% 40%,rgba(181,86,58,.22),rgba(181,86,58,0) 70%);
+  border-radius:62% 38% 54% 46%/46% 54% 46% 54%}
+.hero .inner{max-width:1220px;margin:0 auto;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:11px;margin-bottom:26px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--clay)}
+.eyebrow i{width:34px;height:1px;background:var(--clay);display:block;font-style:normal}
+h1{font-family:var(--display);font-variation-settings:'SOFT' 80,'WONK' 1;font-weight:600;
+  font-size:clamp(44px,9.2vw,132px);line-height:.92;letter-spacing:-.035em;max-width:15ch}
+h1 em{font-style:italic;font-variation-settings:'SOFT' 100,'WONK' 1;color:var(--clay);font-weight:400}
+h1 u{text-decoration:none;position:relative;white-space:nowrap}
+h1 u::after{content:'';position:absolute;left:-2%;right:-2%;bottom:.06em;height:.14em;z-index:-1;
+  background:var(--must);border-radius:60% 40% 50% 50%/50% 60% 40% 50%;transform:rotate(-1.1deg)}
+.lede{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:36px;align-items:end;
+  margin-top:52px;padding-bottom:64px}
+.lede p{max-width:52ch;font-size:16px;color:var(--ink2);line-height:1.72}
+.lede p b{font-weight:700;color:var(--ink);border-bottom:2px solid var(--must)}
+.stamp{width:132px;height:132px;flex:none;display:grid;place-items:center;text-align:center;
+  border:1.5px solid rgba(36,26,18,.32);transform:rotate(-7deg);
+  border-radius:58% 42% 52% 48%/48% 52% 48% 52%}
+.stamp b{display:block;font-family:var(--display);font-size:38px;line-height:1;color:var(--clay);
+  font-variation-settings:'SOFT' 90,'WONK' 1}
+.stamp span{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--ink3);
+  display:block;margin-top:5px;text-transform:uppercase;line-height:1.5}
+@media(max-width:720px){.lede{grid-template-columns:1fr}.stamp{display:none}}
+
+section{padding:80px 26px 88px;position:relative;scroll-margin-top:96px}
+.wrap{max-width:1220px;margin:0 auto}
+.sechead{display:flex;gap:22px;align-items:flex-start;margin-bottom:46px}
+.sechead .ring{flex:none;width:62px;height:62px;position:relative;display:grid;place-items:center}
+.sechead .ring svg{position:absolute;inset:0;width:100%;height:100%}
+.sechead .ring span{font-family:var(--display);font-size:22px;font-weight:600;color:var(--clay);position:relative}
+.sechead h2{font-family:var(--display);font-variation-settings:'SOFT' 72,'WONK' 1;font-weight:600;
+  font-size:clamp(28px,4.4vw,54px);letter-spacing:-.028em;line-height:1.02}
+.sechead .sub{color:var(--ink3);font-size:14.5px;max-width:60ch;margin-top:11px;line-height:1.7}
+@media(max-width:600px){.sechead{flex-direction:column;gap:14px}}
+
+.tract{background:linear-gradient(180deg,transparent,rgba(223,208,182,.5) 18%,rgba(223,208,182,.5) 82%,transparent)}
+.stage{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(270px,.64fr);gap:30px;align-items:start}
+@media(max-width:980px){.stage{grid-template-columns:1fr}}
+.vt-frame{position:relative;aspect-ratio:1/1;min-height:400px}
+.vt-clip{position:absolute;inset:7%;overflow:hidden;background:#faf5ea;
+  border-radius:49% 51% 47% 53%/47% 48% 52% 53%;
+  box-shadow:0 30px 60px -30px rgba(36,26,18,.55),0 0 0 1px rgba(36,26,18,.28)}
+#vt{display:block;width:100%;height:100%}
+.vt-vig{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 46%,transparent 74%,rgba(36,26,18,.06) 100%)}
+.vt-out{position:absolute;inset:7%;width:86%;height:86%;
+  pointer-events:none;overflow:visible}
+.vt-out path{fill:none;stroke:var(--ink);stroke-width:1.5;opacity:.40}
+.modeswitch{position:absolute;top:6px;left:6px;z-index:7;display:flex;
+  border:1px solid rgba(36,26,18,.28);border-radius:40px;overflow:hidden;
+  background:rgba(250,245,234,.92)}
+.modeswitch button{
+  font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:700;padding:5px 11px;background:transparent;border:0;color:var(--ink3);
+  cursor:pointer;transition:.18s}
+.modeswitch button.on{background:var(--clay);color:var(--paper)}
+.vt-lead{position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;overflow:visible}
+.vt-lead line{stroke:rgba(36,26,18,.55);stroke-width:1;vector-effect:non-scaling-stroke}
+.vt-lead line.hot{stroke:#b5563a;stroke-width:1.8}
+.vt-labels{position:absolute;inset:0;pointer-events:none}
+.vtlab{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink);background:rgba(250,245,234,.95);padding:3px 9px;
+  border:1px solid rgba(36,26,18,.30);
+  border-radius:40px 30px 40px 30px/30px 40px 30px 40px;
+  transition:opacity .3s,background .25s,color .25s;cursor:pointer;font-weight:700}
+.vtlab.on{background:var(--clay);color:var(--paper);border-color:var(--clay)}
+.vtlab:hover{background:var(--ink);color:var(--paper)}
+.vt-hint{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--ink3);
+  text-transform:uppercase;background:var(--paper);padding:4px 14px;border-radius:40px;
+  border:1px solid rgba(36,26,18,.18)}
+.tongue-pad{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tongue-pad .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--ink3);
+  text-transform:uppercase;width:100%;margin-bottom:4px}
+.vbtn{font-family:var(--ipa);font-size:20px;line-height:1;color:var(--ink);cursor:pointer;
+  background:rgba(255,255,255,.5);border:1px solid rgba(36,26,18,.24);width:46px;height:46px;
+  display:grid;place-items:center;transition:.2s;
+  border-radius:54% 46% 52% 48%/48% 52% 48% 52%}
+.vbtn:hover{background:var(--must);border-color:var(--must);transform:translateY(-2px) rotate(-4deg)}
+.vbtn.on{background:var(--clay);border-color:var(--clay);color:var(--paper)}
+.toggle{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+.tgb{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  padding:8px 14px;background:rgba(255,255,255,.5);border:1px solid rgba(36,26,18,.24);
+  color:var(--ink3);cursor:pointer;transition:.18s;font-weight:700;
+  border-radius:40px 26px 40px 26px/26px 40px 26px 40px}
+.tgb:hover{background:var(--sand);color:var(--ink)}
+.tgb.on{background:var(--sage);border-color:var(--sage);color:var(--paper)}
+
+.places{display:flex;flex-direction:column;gap:9px}
+.place{display:grid;grid-template-columns:34px 1fr;gap:13px;align-items:center;
+  background:rgba(255,255,255,.5);border:1px solid rgba(36,26,18,.16);padding:13px 16px;
+  text-align:left;color:inherit;font-family:inherit;cursor:pointer;transition:.22s;
+  border-radius:60px 40px 60px 40px/40px 60px 40px 60px}
+.place:nth-child(even){border-radius:40px 60px 40px 60px/60px 40px 60px 40px}
+.place:hover{background:rgba(255,255,255,.92);transform:translateX(3px)}
+.place.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.place .n{font-family:var(--display);font-size:15px;font-weight:600;color:var(--clay);text-align:center}
+.place.on .n{color:var(--must)}
+.place .pn{font-family:var(--display);font-size:15.5px;font-weight:600;letter-spacing:-.01em;display:block}
+.place .pd{font-size:11.5px;color:var(--ink3);line-height:1.4;display:block;margin-top:1px}
+.place.on .pd{color:rgba(241,231,215,.78)}
+.place .chips{font-family:var(--ipa);font-size:16px;color:var(--clay);grid-column:2;margin-top:5px}
+.place.on .chips{color:var(--must)}
+
+.garden{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.85fr);gap:32px;align-items:start}
+@media(max-width:980px){.garden{grid-template-columns:1fr}}
+.garden svg{display:block;width:100%;height:auto;overflow:visible}
+.gquad{fill:rgba(255,255,255,.4);stroke:rgba(36,26,18,.48);stroke-width:1.6}
+.ggrid{stroke:rgba(36,26,18,.16);stroke-width:1}
+.gax{font-family:var(--mono);font-size:9px;letter-spacing:.22em;fill:var(--ink3)}
+.peb{cursor:pointer}
+.peb ellipse{transition:.22s}
+.peb text{font-family:var(--ipa);font-size:20px;fill:var(--ink);text-anchor:middle;
+  dominant-baseline:central;pointer-events:none;transition:fill .2s}
+.peb:hover ellipse{fill:var(--must)}
+.parrow{stroke:var(--sage);stroke-width:1.5;fill:none;opacity:.7;stroke-dasharray:2 5;stroke-linecap:round}
+.plab{font-family:var(--ipa);font-size:13px;fill:var(--sage);text-anchor:middle;opacity:.95}
+
+.frow{display:flex;gap:14px;align-items:flex-start;margin-bottom:13px;flex-wrap:wrap}
+.frow .rowlabel{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink3);width:46px;flex:none;padding-top:11px}
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 16px;background:rgba(255,255,255,.5);border:1px solid rgba(36,26,18,.18);
+  color:var(--ink3);cursor:pointer;transition:.2s;
+  border-radius:50px 40px 50px 40px/40px 50px 40px 50px}
+.pill:hover{background:var(--sand);color:var(--ink)}
+.pill.on{background:var(--clay);border-color:var(--clay);color:var(--paper)}
+.pill.pl.on{background:var(--sage);border-color:var(--sage);color:var(--paper)}
+.search{flex:1;min-width:180px;background:rgba(255,255,255,.6);border:1px solid rgba(36,26,18,.18);
+  color:var(--ink);font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;padding:11px 18px;
+  outline:none;transition:.2s;border-radius:60px 40px 60px 40px/40px 60px 40px 60px}
+.search::placeholder{color:var(--ink3);opacity:.75}
+.search:focus{border-color:var(--clay);background:#fff;box-shadow:0 0 0 3px rgba(181,86,58,.14)}
+.tally{display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;color:var(--ink3);
+  text-transform:uppercase;margin:20px 0 18px}
+.tally b{color:var(--clay)}
+.clr{background:var(--clay);color:var(--paper);border:none;font-family:var(--mono);
+  font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  padding:9px 18px;cursor:pointer;transition:.2s;
+  border-radius:50px 40px 50px 40px/40px 50px 40px 50px;
+  box-shadow:0 6px 16px -6px rgba(181,86,58,.8)}
+.clr:hover{background:var(--ink);transform:translateY(-1px);
+  box-shadow:0 10px 20px -8px rgba(36,26,18,.65)}
+
+.wordcard{display:none;margin-bottom:20px;padding:20px 22px;
+  background:rgba(255,255,255,.68);border:2px solid var(--clay);
+  border-radius:26px 40px 22px 44px/40px 24px 44px 22px;
+  box-shadow:0 16px 34px -24px rgba(181,86,58,.65)}
+.wordcard.on{display:block}
+.wordcard .wchead{font-family:var(--mono);font-size:8.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--clay);margin-bottom:12px;font-weight:700}
+.wrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:16px}
+.wword{font-family:var(--display);font-variation-settings:'SOFT' 80,'WONK' 1;
+  font-size:30px;font-weight:600;letter-spacing:-.02em}
+.wsyms{display:flex;flex-wrap:wrap;gap:6px}
+.wsym{font-family:var(--ipa);font-size:22px;line-height:1;color:var(--ink);cursor:pointer;
+  background:rgba(255,255,255,.78);border:1px solid rgba(36,26,18,.24);padding:6px 12px;
+  transition:.18s;border-radius:40px 26px 40px 26px/26px 40px 26px 40px}
+.wsym:hover{background:var(--must);border-color:var(--must);transform:translateY(-2px)}
+.wslashes{font-family:var(--ipa);font-size:19px;color:var(--clay);margin-top:10px}
+.wnote{font-size:11.5px;color:var(--ink3);line-height:1.65;margin-top:12px;
+  padding-top:11px;border-top:1px dashed rgba(36,26,18,.24)}
+.wsug{display:flex;flex-wrap:wrap;gap:7px}
+.wsugb{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink);
+  background:rgba(255,255,255,.78);border:1px solid rgba(36,26,18,.24);padding:7px 13px;
+  cursor:pointer;transition:.18s;border-radius:40px 26px 40px 26px/26px 40px 26px 40px}
+.wsugb:hover{background:var(--must);border-color:var(--must)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(198px,1fr));gap:11px}
+.card{background:rgba(255,255,255,.56);border:1px solid rgba(36,26,18,.16);padding:16px 16px 14px;
+  text-align:left;color:inherit;font-family:inherit;cursor:pointer;transition:.24s;
+  display:flex;flex-direction:column;gap:7px;min-height:132px;
+  border-radius:22px 14px 24px 16px/16px 24px 14px 22px}
+.card:nth-child(3n){border-radius:14px 26px 16px 22px/24px 16px 22px 14px}
+.card:nth-child(4n){border-radius:26px 16px 22px 14px/14px 22px 26px 16px}
+.card:hover{transform:translateY(-4px) rotate(-1deg);background:#fff;
+  box-shadow:0 18px 34px -20px rgba(36,26,18,.55);border-color:var(--clay)}
+.card.hit{border-color:var(--must);background:rgba(255,252,242,.98);
+  box-shadow:0 14px 28px -18px rgba(210,160,63,.85)}
+.card .s{font-family:var(--ipa);font-size:38px;line-height:1;color:var(--ink);transition:.2s}
+.card:hover .s{color:var(--clay)}
+.card .nm{font-size:11.5px;color:var(--ink3);line-height:1.42;flex:1}
+.card .foot{display:flex;justify-content:space-between;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.08em;
+  border-top:1px dashed rgba(36,26,18,.22);padding-top:8px}
+.card .tag{font-family:var(--mono);font-size:7.5px;letter-spacing:.14em;padding:2px 6px;
+  border:1px solid rgba(36,26,18,.28);border-radius:20px;color:var(--ink3)}
+.card .tag.v{border-color:var(--must);color:#8d6810}
+.card.dim{opacity:.22;filter:grayscale(1)}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:16px}
+.note{background:rgba(255,255,255,.5);border:1px solid rgba(36,26,18,.16);padding:24px 22px 26px;
+  transition:.26s;border-radius:24px 40px 20px 44px/40px 22px 44px 20px;
+  box-shadow:0 10px 26px -22px rgba(36,26,18,.62)}
+.note:nth-child(odd){transform:rotate(-.7deg)}
+.note:nth-child(even){transform:rotate(.6deg)}
+.note:hover{transform:rotate(0) translateY(-4px);background:#fff;
+  box-shadow:0 24px 44px -26px rgba(36,26,18,.58)}
+.note h3{font-family:var(--display);font-variation-settings:'SOFT' 76,'WONK' 1;font-size:19px;
+  font-weight:600;letter-spacing:-.015em;margin-bottom:9px}
+.note p{font-size:13px;color:var(--ink2);line-height:1.75}
+.note .syms{font-family:var(--ipa);font-size:17px;color:var(--clay);margin-top:13px;
+  padding-top:11px;border-top:1px dashed rgba(36,26,18,.24)}
+
+.diacs{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:11px;margin-top:26px}
+.diac{background:rgba(255,255,255,.5);border:1px solid rgba(36,26,18,.15);padding:14px 16px;
+  display:flex;gap:13px;align-items:baseline;
+  border-radius:50px 26px 50px 26px/26px 50px 26px 50px}
+.diac b{font-family:var(--ipa);font-size:22px;color:var(--clay);flex:none}
+.diac span{font-size:11px;color:var(--ink2);line-height:1.5}
+
+.scrim{position:fixed;inset:0;background:rgba(36,26,18,.55);z-index:190;opacity:0;
+  pointer-events:none;transition:opacity .32s;backdrop-filter:blur(4px)}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(452px,100%);z-index:200;
+  background:var(--paper);background-image:
+    radial-gradient(circle at 80% 6%,rgba(210,160,63,.2),transparent 45%),
+    radial-gradient(circle at 10% 80%,rgba(181,86,58,.14),transparent 45%);
+  border-left:1px solid rgba(36,26,18,.22);overflow-y:auto;
+  transform:translateX(103%);transition:transform .48s cubic-bezier(.22,1,.36,1);
+  padding:24px 28px 76px;box-shadow:-30px 0 60px -30px rgba(36,26,18,.55)}
+.drawer.open{transform:none}
+.drawer::-webkit-scrollbar{width:7px}
+.drawer::-webkit-scrollbar-thumb{background:rgba(36,26,18,.3);border-radius:10px}
+.dclose{position:absolute;top:20px;right:22px;width:36px;height:36px;background:transparent;
+  border:1px solid rgba(36,26,18,.34);color:var(--ink3);cursor:pointer;font-size:13px;
+  transition:.2s;line-height:1;border-radius:50% 42% 50% 42%/42% 50% 42% 50%}
+.dclose:hover{background:var(--clay);border-color:var(--clay);color:var(--paper)}
+.dsym{font-family:var(--ipa);font-size:clamp(58px,14vw,96px);line-height:.92;color:var(--clay);
+  margin:30px 0 10px;letter-spacing:-.02em}
+.dname{font-family:var(--display);font-variation-settings:'SOFT' 76,'WONK' 1;font-size:20px;
+  font-weight:600;line-height:1.3;padding-right:34px;letter-spacing:-.015em}
+.dsub{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--ink3);
+  margin-top:9px;text-transform:uppercase}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 4px}
+.bdg{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;padding:5px 11px;
+  border:1px solid rgba(36,26,18,.28);color:var(--ink3);text-transform:uppercase;
+  border-radius:30px 22px 30px 22px/22px 30px 22px 30px}
+.bdg.a{border-color:var(--clay);color:var(--clay)}
+.bdg.h{border-color:var(--plum);color:var(--plum)}
+.bdg.c{border-color:var(--sage);color:#546132}
+.dsec{margin-top:26px;padding-top:19px;border-top:1px dashed rgba(36,26,18,.24)}
+.dsec h4{font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--ink3);
+  text-transform:uppercase;margin-bottom:12px}
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.word{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.68);
+  border:1px solid rgba(36,26,18,.2);padding:9px 14px;cursor:pointer;transition:.2s;
+  font-family:var(--ipa);font-size:15px;color:var(--ink);
+  border-radius:40px 26px 40px 26px/26px 40px 26px 40px}
+.word:hover{background:var(--must);border-color:var(--must)}
+.word i{font-style:normal;font-size:8px;color:var(--ink3);letter-spacing:.1em;font-family:var(--mono)}
+.dspell{font-family:var(--ipa);font-size:16px;color:var(--sage)}
+.dpair{font-family:var(--ipa);font-size:17px;color:var(--tera)}
+.dnote{font-size:13.5px;color:var(--ink2);line-height:1.78}
+
+footer{padding:64px 26px 76px;background:var(--ink);color:var(--paper);margin-top:20px;
+  border-radius:44% 56% 0 0/60px 60px 0 0}
+.fwrap{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px}
+@media(max-width:800px){.fwrap{grid-template-columns:1fr}}
+footer h5{font-family:var(--mono);font-size:9px;letter-spacing:.24em;color:var(--must);
+  text-transform:uppercase;margin-bottom:14px}
+footer p{font-size:12.5px;color:rgba(241,231,215,.75);line-height:1.85}
+footer ul{list-style:none}
+footer li{font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  color:rgba(241,231,215,.66);line-height:2}
+.ffoot{max-width:1220px;margin:52px auto 0;padding-top:22px;
+  border-top:1px solid rgba(241,231,215,.18);font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.18em;color:rgba(241,231,215,.46);text-transform:uppercase}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="brand">Phonet<b>i</b>ca</div>
+  <div class="navlinks">
+    <a href="#tract">The Tract</a>
+    <a href="#vowels">Vowel Field</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#notes">Field Notes</a>
+    <a href="#marks">Marks</a>
+  </div>
+</nav>
+
+
+<header class="hero">
+  <svg class="sun" viewBox="0 0 400 400" aria-hidden="true">
+    <circle cx="200" cy="200" r="66" fill="none" stroke="#d2a03f" stroke-width="1.2" opacity=".8"/>
+    <circle cx="200" cy="200" r="102" fill="none" stroke="#b5563a" stroke-width="1" opacity=".5"/>
+    <circle cx="200" cy="200" r="138" fill="none" stroke="#7c8b5f" stroke-width="1" opacity=".4"/>
+    <g stroke="#b5563a" stroke-width="1.2" opacity=".55">
+      <path d="M200 20 L200 74"/><path d="M200 326 L200 380"/>
+      <path d="M20 200 L74 200"/><path d="M326 200 L380 200"/>
+      <path d="M74 74 L112 112"/><path d="M288 288 L326 326"/>
+      <path d="M326 74 L288 112"/><path d="M112 288 L74 326"/>
+    </g>
+    <circle cx="200" cy="200" r="13" fill="#cd7a52" opacity=".85"/>
+  </svg>
+  <div class="blob"></div>
+  <div class="inner">
+    <div class="eyebrow">General American English · IPA</div>
+    <h1>Make every <em>sound</em> <u>visible</u>.</h1>
+    <div class="lede">
+      <p>A field guide to the phoneme inventory of General American English, every symbol drawn from the <b>shape of the mouth that makes it</b>. Built for SLP students who need to see articulation, not just memorise charts.
+Created by Chloe Villa-Abrille.
+Website is currently in beta. Fine tuning and more features planned!</p>
+      <div class="stamp"><b id="phcount">—</b><span>Symbols<br>Indexed</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="tract" id="tract">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="ring">
+        <svg viewBox="0 0 62 62"><path d="M31 3 C48 2 59 14 58 31 C57 47 46 60 30 58 C14 56 3 45 4 29 C5 13 15 4 31 3" fill="none" stroke="#b5563a" stroke-width="1.4"/></svg>
+        <span>01</span>
+      </div>
+      <div>
+        <h2>The Vocal Tract</h2>
+        <p class="sub">A midsagittal plate of the head and neck, drawn in flat ink bands and colour-coded by region: nasal cavity, nasopharynx, oropharynx, laryngopharynx and esophagus. Drag to turn it, click a gold marker to filter, or drive the tongue with the pad below.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div>
+        <div class="vt-frame">
+          <div class="vt-clip" id="vtClip">
+            <canvas id="vt"></canvas>
+            <div class="vt-vig"></div>
+            <div class="modeswitch" id="modeswitch">
+              <button data-m="plate" class="on">Plate</button>
+              <button data-m="ascii">ASCII</button>
+            </div>
+          </div>
+          <svg class="vt-out" viewBox="0 0 500 620" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M250 4 C404 -2 498 120 494 310 C490 500 396 616 250 614 C104 612 10 496 6 306 C2 116 100 10 250 4"/>
+          </svg>
+          <svg class="vt-lead" id="vtLead" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="vt-labels" id="vtLabels"></div>
+          <div class="vt-hint">Drag to rotate</div>
+        </div>
+        <div class="tongue-pad" id="tonguePad"><span class="lbl">Move the tongue</span></div>
+        <div class="toggle" id="toggle">
+          <button class="tgb on" data-t="bone">Bone</button>
+          <button class="tgb on" data-t="cart">Cartilage</button>
+          <button class="tgb on" data-t="air">Airway</button>
+          <button class="tgb on" data-t="phar">Pharynx</button>
+          <button class="tgb on" data-t="nasal">Nasal</button>
+          <button class="tgb on" data-t="spine">Spine</button>
+        </div>
+      </div>
+      <div class="places" id="places"></div>
+    </div>
+  </div>
+</section>
+
+<section id="vowels">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="ring">
+        <svg viewBox="0 0 62 62"><path d="M31 4 C47 3 58 15 57 31 C56 46 45 58 30 57 C15 55 4 44 5 29 C6 14 16 5 31 4" fill="none" stroke="#7c8b5f" stroke-width="1.4"/></svg>
+        <span>02</span>
+      </div>
+      <div>
+        <h2>Vowel Field</h2>
+        <p class="sub">Vowels are not about contact. They live in a space defined by tongue height, backness and lip rounding. Hover any pebble to reshape the tongue in the plate, and click for the full entry.</p>
+      </div>
+    </div>
+    <div class="garden">
+      <div><svg id="vsvg" viewBox="-14 -22 600 500" role="img" aria-label="Vowel space"></svg></div>
+      <div class="places" id="vlist"></div>
+    </div>
+  </div>
+</section>
+
+<section id="inventory">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="ring">
+        <svg viewBox="0 0 62 62"><path d="M30 3 C46 1 59 13 58 30 C57 47 47 59 30 58 C13 57 3 46 4 28 C5 11 14 5 30 3" fill="none" stroke="#cd7a52" stroke-width="1.4"/></svg>
+        <span>03</span>
+      </div>
+      <div>
+        <h2>Full Inventory</h2>
+        <p class="sub">Both filter rows below are the same filters used in section 01, so your selection follows you down. Type a word like <b>dog</b> to see its phonemes spelled out.</p>
+      </div>
+    </div>
+    <div class="frow">
+      <span class="rowlabel">Class</span>
+      <div class="pills" id="pills"></div>
+    </div>
+    <div class="frow">
+      <span class="rowlabel">Place</span>
+      <div class="pills" id="pillsPlaces"></div>
+    </div>
+    <div class="frow">
+      <span class="rowlabel">Look up</span>
+      <input class="search" id="search" placeholder="TYPE A WORD, SYMBOL OR NAME. TRY: DOG, SHIP, BUTTER" autocomplete="off">
+    </div>
+    <div class="tally" id="tally"></div>
+    <div class="wordcard" id="wordcard"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="ring">
+        <svg viewBox="0 0 62 62"><path d="M32 4 C48 4 58 16 57 32 C56 47 44 58 29 57 C14 56 4 44 5 28 C6 13 17 5 32 4" fill="none" stroke="#d2a03f" stroke-width="1.4"/></svg>
+        <span>04</span>
+      </div>
+      <div>
+        <h2>Field Notes on Variation</h2>
+        <p class="sub">No two speakers share an identical inventory. These are the processes you will actually hear, and each one decides whether something is a disorder or a dialect.</p>
+      </div>
+    </div>
+    <div class="notes" id="notes"></div>
+  </div>
+</section>
+
+<section id="marks">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="ring">
+        <svg viewBox="0 0 62 62"><path d="M31 3 C47 2 57 14 56 30 C55 46 45 57 30 56 C15 55 5 44 6 29 C7 14 16 4 31 3" fill="none" stroke="#6d4657" stroke-width="1.4"/></svg>
+        <span>05</span>
+      </div>
+      <div>
+        <h2>Diacritics &amp; Allophones</h2>
+        <p class="sub">Slash marks / / hold a mental category, a <em>phoneme</em>. Square marks [ ] hold what actually came out of the mouth, a <em>phone</em>. These are the marks that record the difference.</p>
+      </div>
+    </div>
+    <div class="diacs" id="diacs"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fwrap">
+    <div>
+      <h5>Phonetica</h5>
+      <p>An interactive guide to the General American English phoneme inventory, built as a study companion for speech-language pathology students. Transcription conventions follow standard North American clinical practice. The vocal tract model is procedural, built from published articulatory data, and animates the tongue across the vowel space.</p>
+    </div>
+    <div>
+      <h5>References</h5>
+      <ul>
+        <li>IPA Handbook (1999)</li>
+        <li>Ladefoged &amp; Johnson</li>
+        <li>Shriberg &amp; Kent</li>
+        <li>Kenyon &amp; Knott (1953)</li>
+        <li>Fant, Acoustic Theory (1960)</li>
+        <li>Story, MRI area functions</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Keys</h5>
+      <ul>
+        <li>Click a marker: filter</li>
+        <li>Drag the tract: rotate</li>
+        <li>Click a word: hear it</li>
+        <li>Esc: close panel</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ffoot">◆ /Slashes/ = phoneme · [Brackets] = allophone · ɡ ≠ g · ɹ ≠ r</div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose">✕</button>
+  <div id="dbody"></div>
+</aside>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.157.0/build/three.module.js" } }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+const PH=[
+{s:'p',cat:'consonant',nm:'Voiceless bilabial plosive',plc:'Bilabial',mnr:'Plosive',vc:0,ex:['pat','spin','cap'],sp:'p · pp',reg:['bilabial'],note:'Aspirated [pʰ] in stressed onsets and unaspirated after /s/, an allophonic difference, never phonemic. Errors on /p/ are rare; substitution by /b/ is atypical and should prompt a hearing check.'},
+{s:'b',cat:'consonant',nm:'Voiced bilabial plosive',plc:'Bilabial',mnr:'Plosive',vc:1,ex:['bat','rabbit','cab'],sp:'b · bb',reg:['bilabial'],note:'English voiced stops are only truly voiced between sonorants. Word-initially they are usually short-lag [b̥], which is why VOT measures matter more than the label.'},
+{s:'t',cat:'consonant',nm:'Voiceless alveolar plosive',plc:'Alveolar',mnr:'Plosive',vc:0,ex:['top','stop','cat'],sp:'t · tt · -ed',reg:['alveolar'],note:'Realised as a tap [ɾ] between a stressed and unstressed vowel, as a glottal stop [ʔ] before a syllabic nasal, and unreleased in coda. Four allophones, one phoneme.'},
+{s:'d',cat:'consonant',nm:'Voiced alveolar plosive',plc:'Alveolar',mnr:'Plosive',vc:1,ex:['dog','ladder','red'],sp:'d · dd · -ed',reg:['alveolar'],note:'Also surfaces as [ɾ] intervocalically, so ladder and latter can be homophones. Final /d/ devoices to [d̥] but keeps its shorter preceding vowel.'},
+{s:'k',cat:'consonant',nm:'Voiceless velar plosive',plc:'Velar',mnr:'Plosive',vc:0,ex:['cap','skip','back'],sp:'k · c · ck · ch · qu',reg:['velar'],note:'Fronted and palatalised toward the hard palate before front vowels. Fronting is a coarticulatory effect, not a change in phoneme.'},
+{s:'ɡ',cat:'consonant',nm:'Voiced velar plosive',plc:'Velar',mnr:'Plosive',vc:1,ex:['go','bigger','bag'],sp:'g · gg · gh',reg:['velar'],note:'Note the symbol: IPA ɡ is U+0261, single-storey. The ordinary letter g is U+0067. Clinical transcripts should use ɡ to keep it distinct, which is also why searching for the letter g can miss it.'},
+{s:'f',cat:'consonant',nm:'Voiceless labiodental fricative',plc:'Labiodental',mnr:'Fricative',vc:0,ex:['fat','coffee','leaf'],sp:'f · ff · ph · gh',reg:['labiodental'],note:'The lower lip contacts the edges of the upper central incisors. Frequently the substitution target for /θ/, which is why the two must be taught as a contrast pair.'},
+{s:'v',cat:'consonant',nm:'Voiced labiodental fricative',plc:'Labiodental',mnr:'Fricative',vc:1,ex:['van','seven','love'],sp:'v · f',reg:['labiodental'],note:'Acquired relatively late, roughly 4;0 to 5;0. Devoicing to [f] word-finally is the most common error and often persists in connected speech.'},
+{s:'θ',cat:'consonant',nm:'Voiceless dental fricative',plc:'Dental',mnr:'Fricative',vc:0,ex:['thin','author','bath'],sp:'th',reg:['dental'],note:'Among the last sounds acquired and a frequent intervention target. Substituted by /f/, /s/, or [t]. Absent from many world Englishes and from African American English, where it is rule-governed, not a disorder.'},
+{s:'ð',cat:'consonant',nm:'Voiced dental fricative',plc:'Dental',mnr:'Fricative',vc:1,ex:['this','mother','bathe'],sp:'th',reg:['dental'],note:'Carried almost entirely by function words: the, this, that, they. Often stopped to [d] or elided in fast speech, which can read as an omission on a transcription task.'},
+{s:'s',cat:'consonant',nm:'Voiceless alveolar fricative',plc:'Alveolar',mnr:'Fricative',vc:0,ex:['sun','kissing','bus'],sp:'s · ss · c · sc · x',reg:['alveolar'],note:'The most frequent consonant error in both child and adult caseloads. Frontal and lateral lisps are failures of tongue-groove shaping, not of place. Pair with /ʃ/ when establishing the sibilant contrast.'},
+{s:'z',cat:'consonant',nm:'Voiced alveolar fricative',plc:'Alveolar',mnr:'Fricative',vc:1,ex:['zoo','easy','buzz'],sp:'z · zz · s',reg:['alveolar'],note:'Carries the regular plural and third-person endings after voiced sounds. Devoicing here is one of the last residual errors to clear.'},
+{s:'ʃ',cat:'consonant',nm:'Voiceless postalveolar fricative',plc:'Postalveolar',mnr:'Fricative',vc:0,ex:['ship','nation','wish'],sp:'sh · ti · ci · s · ch',reg:['postalveolar'],note:'Tongue blade narrows toward the postalveolar region while the lips protrude. The /s/ and /ʃ/ contrast depends on both place and lip posture, so cover the mouth to force place-only cues.'},
+{s:'ʒ',cat:'consonant',nm:'Voiced postalveolar fricative',plc:'Postalveolar',mnr:'Fricative',vc:1,ex:['measure','vision','beige'],sp:'s · si · ge · j',reg:['postalveolar'],note:'The least frequent phoneme in English and never word-initial in native vocabulary. Usually devoiced to [ʃ] next to voiceless sounds, a normal reduction.'},
+{s:'h',cat:'consonant',nm:'Voiceless glottal fricative',plc:'Glottal',mnr:'Fricative',vc:0,ex:['hat','ahead','behave'],sp:'h · wh',reg:['glottal'],note:'Produced by turbulent airflow through the open glottis. The tongue is not involved at all. Frequently elided in connected speech, and omission in unstressed function words is dialect-neutral.'},
+{s:'tʃ',cat:'consonant',nm:'Voiceless postalveolar affricate',plc:'Postalveolar',mnr:'Affricate',vc:0,ex:['chip','nature','catch'],sp:'ch · tch · t · tu',reg:['postalveolar'],note:'One phoneme, not /t/ plus /ʃ/. The closure must be complete before the fricative release. Incomplete closure produces a distorted [ʃ] and is a classic residual error.'},
+{s:'dʒ',cat:'consonant',nm:'Voiced postalveolar affricate',plc:'Postalveolar',mnr:'Affricate',vc:1,ex:['jump','badger','age'],sp:'j · g · dg · d',reg:['postalveolar'],note:'Devoiced to [tʃ] in coda position in many dialects. Regressive voicing assimilation, also not an error.'},
+{s:'m',cat:'consonant',nm:'Bilabial nasal',plc:'Bilabial',mnr:'Nasal',vc:1,ex:['man','hammer','him'],sp:'m · mm · mb · mn',reg:['bilabial','nasal'],note:'The velum lowers so air flows through the nasal cavity while the lips seal. Syllabic [m̩] appears in a few unstressed forms like rhythm.'},
+{s:'n',cat:'consonant',nm:'Alveolar nasal',plc:'Alveolar',mnr:'Nasal',vc:1,ex:['no','dinner','sun'],sp:'n · nn · kn · gn',reg:['alveolar','nasal'],note:'The most common assimilating sound in English, its place shifts to match what follows. Syllabic [n̩] carries unstressed syllables like button and cotton.'},
+{s:'ŋ',cat:'consonant',nm:'Velar nasal',plc:'Velar',mnr:'Nasal',vc:1,ex:['sing','finger','long'],sp:'ng · n',reg:['velar','nasal'],note:'Never word-initial in native English. Two spelling traps: sing is /sɪŋ/ but finger is /fɪŋɡɚ/. g-dropping turns -ing into /ɪn/, a fully acceptable informal variant.'},
+{s:'l',cat:'consonant',nm:'Alveolar lateral approximant',plc:'Alveolar',mnr:'Approximant',vc:1,ex:['lip','yellow','feel'],sp:'l · ll',reg:['alveolar'],note:'Two very different sounds: clear [l] in onsets and dark, velarised [ɫ] in codas. Some dialects vocalise coda /l/ into a vowel. Errors are usually on the dark variant.'},
+{s:'ɹ',cat:'consonant',nm:'Alveolar approximant',plc:'Alveolar',mnr:'Approximant',vc:1,ex:['red','around','car'],sp:'r · rr · wr',reg:['alveolar'],note:'Written /r/ in nearly all clinical literature, though the IPA symbol is ɹ. English /ɹ/ is labialised in most onset contexts, so the lips round before the tongue ever moves. A common residual error.'},
+{s:'w',cat:'consonant',nm:'Labial–velar approximant',plc:'Labial + Velar',mnr:'Approximant',vc:1,ex:['wet','away','queen'],sp:'w · wh · u',reg:['bilabial','velar'],note:'Two simultaneous constrictions: lip rounding plus a velar approximation. Rarely in error, but often confused with /v/ in early speech.'},
+{s:'j',cat:'consonant',nm:'Palatal approximant',plc:'Palatal',mnr:'Approximant',vc:1,ex:['yes','canyon','few'],sp:'y · i · u',reg:['palatal'],note:'The glide in cute, music and huge. Yod-dropping after alveolars is standard in most American dialects and is not an error.'},
+{s:'ʍ',cat:'consonant',nm:'Voiceless labial–velar fricative',plc:'Labial + Velar',mnr:'Fricative',vc:0,ex:['which','whale','whine'],sp:'wh',reg:['bilabial','velar','glottal'],note:'Marginal. Survives only where the which and witch contrast is preserved. Its loss is the majority pattern and is not a disorder.'},
+{s:'i',cat:'vowel',nm:'Close front unrounded vowel',hgt:'Close',bck:'Front',rnd:0,ex:['see','tea','key'],sp:'ee · ea · e · ie · y',reg:['tongue'],note:'Tongue body high and forward, lips spread. F1 low and F2 high, the two formants furthest apart of any English vowel, which makes it the anchor point for vowel-space plotting.'},
+{s:'ɪ',cat:'vowel',nm:'Near-close near-front unrounded vowel',hgt:'Near-close',bck:'Near-front',rnd:0,ex:['sit','bit','myth'],sp:'i · y · ui · e',reg:['tongue'],note:'Lax and shorter than /i/. The sit and seat height difference is the classic ESL and hearing-loss discrimination target. Before nasals it merges with /ɛ/ in Southern dialects.'},
+{s:'e',cat:'vowel',variant:1,nm:'Close-mid front unrounded vowel',hgt:'Close-mid',bck:'Front',rnd:0,ex:['gate','face','day'],sp:'a · ai · ay · ea · ey',reg:['tongue'],note:'Notation variant. Most American descriptions transcribe long a as /eɪ/, but a monophthongal /e/ is common in careful speech and clinical materials. Match whichever convention your program uses.'},
+{s:'ɛ',cat:'vowel',nm:'Open-mid front unrounded vowel',hgt:'Open-mid',bck:'Front',rnd:0,ex:['bed','head','said'],sp:'e · ea · ai · ie',reg:['tongue'],note:'Before nasals it merges with /ɪ/ in Southern and some Midland dialects. The bed and bad, pen and pan contrasts are the two most common vowel minimal-pair targets.'},
+{s:'æ',cat:'vowel',nm:'Near-open front unrounded vowel',hgt:'Near-open',bck:'Front',rnd:0,ex:['cat','bad','laugh'],sp:'a · ai',reg:['tongue'],note:'Subject to the most dramatic dialect split in American English. In the Northern Cities and Mid-Atlantic, /æ/ splits into tense [eə] and lax [æ] depending on the following consonant, so bag and bat diverge sharply.'},
+{s:'ɑ',cat:'vowel',nm:'Open back unrounded vowel',hgt:'Open',bck:'Back',rnd:0,ex:['father','cot','hot'],sp:'o · a',reg:['tongue'],note:'The lowest vowel in English. Merges with /ɔ/ for the roughly 60% of Americans with the cot and caught merger, eliminating one phoneme from their inventory entirely.'},
+{s:'ɔ',cat:'vowel',nm:'Open-mid back rounded vowel',hgt:'Open-mid',bck:'Back',rnd:1,ex:['thought','law','dog'],sp:'o · aw · au · ough',reg:['tongue'],note:'Absent from the inventory of merged speakers. Where it survives, in New York, New England and the Inland North, it is often raised and diphthongised toward [oə]. This is the vowel in dog for unmerged speakers.'},
+{s:'o',cat:'vowel',variant:1,nm:'Close-mid back rounded vowel',hgt:'Close-mid',bck:'Back',rnd:1,ex:['go','boat','though'],sp:'o · oa · ow · ou',reg:['tongue'],note:'Notation variant. Usually transcribed as the diphthong /oʊ/ in American English, while a monophthongal [o] is characteristic of Minnesota, the Upper Midwest and some Canadian speech.'},
+{s:'ʊ',cat:'vowel',nm:'Near-close near-back rounded vowel',hgt:'Near-close',bck:'Near-back',rnd:1,ex:['book','put','wolf'],sp:'oo · u · ou',reg:['tongue'],note:'Lax counterpart to /u/. Fronted to [ʉ] in much of the West and Midwest, so book sits closer to the centre of the vowel space than the traditional chart suggests.'},
+{s:'u',cat:'vowel',nm:'Close back rounded vowel',hgt:'Close',bck:'Back',rnd:1,ex:['boot','blue','food'],sp:'oo · u · ew · ue · oe',reg:['tongue'],note:'Strongly fronted in most American varieties, commonly [ʉ] or [ʉu]. The classic cardinal [u] is rare outside conservative Southern and New England speech.'},
+{s:'ʌ',cat:'vowel',nm:'Open-mid back unrounded vowel',hgt:'Open-mid',bck:'Central-back',rnd:0,ex:['cup','love','blood'],sp:'u · o · ou',reg:['tongue'],note:'A stressed-only vowel. It never appears in unstressed syllables, which is why reduced /ʌ/ becomes /ə/. Traditionally called the STRUT vowel.'},
+{s:'ə',cat:'vowel',nm:'Mid central vowel (schwa)',hgt:'Mid',bck:'Central',rnd:0,ex:['about','sofa','banana'],sp:'any unstressed vowel',reg:['tongue'],note:'By far the most frequent vowel in English. Every unstressed syllable gravitates toward it. Teaching schwa early improves intelligibility more than perfecting any single consonant.'},
+{s:'ɝ',cat:'rhotic',nm:'R-coloured central vowel (stressed)',hgt:'Mid',bck:'Central',rnd:1,ex:['bird','nurse','word'],sp:'er · ir · ur · ear · or',reg:['tongue','alveolar'],note:'A single rhotic vowel, not /ʌ/ plus /ɹ/. Stressed and longer. The tongue simultaneously forms a mid-central vowel and a bunched or retroflex constriction.'},
+{s:'ɚ',cat:'rhotic',nm:'R-coloured central vowel (unstressed)',hgt:'Mid',bck:'Central',rnd:1,ex:['butter','doctor','letter'],sp:'er · ar · or · ure',reg:['tongue','alveolar'],note:'The unstressed counterpart of /ɝ/. Corresponds to syllabic /ɹ/, so the r is the entire syllable. The butter and buddy contrast makes a clean rhoticity probe.'},
+{s:'eɪ',cat:'diphthong',nm:'Closing diphthong, front to front',ex:['face','day','they'],sp:'a · ai · ay · ea · ey',reg:['tongue'],note:'Begins mid-front and rises toward /i/. Frequently monophthongised to [e] before voiced consonants and in Southern speech.'},
+{s:'aɪ',cat:'diphthong',nm:'Closing diphthong, low central to front',ex:['price','my','sigh'],sp:'i · y · ie · igh · uy',reg:['tongue'],note:'Subject to Canadian Raising. Before voiceless consonants the onset raises to [ʌɪ], so writer and rider carry different vowels for many speakers.'},
+{s:'ɔɪ',cat:'diphthong',nm:'Closing diphthong, back to front',ex:['choice','boy','coin'],sp:'oi · oy',reg:['tongue'],note:'The rarest of the five. Its onset is affected by the cot and caught merger, so boy starts lower for merged speakers.'},
+{s:'oʊ',cat:'diphthong',nm:'Closing diphthong, back to back',ex:['goat','go','though'],sp:'o · oa · ow · ou · ew',reg:['tongue'],note:'The single biggest vowel difference between American and British English. RP has /əʊ/ where American has /oʊ/.'},
+{s:'aʊ',cat:'diphthong',nm:'Closing diphthong, low central to back',ex:['mouth','now','town'],sp:'ou · ow',reg:['tongue'],note:'Also subject to Canadian Raising. In the US South it can flatten to [æʊ] or even monophthongise before voiced consonants.'}
+];
+
+const WORDS={
+dog:'d ɔ ɡ',cat:'k æ t',bat:'b æ t',man:'m æ n',pan:'p æ n',sit:'s ɪ t',see:'s i',
+sea:'s i',bee:'b i',tea:'t i',key:'k i',bed:'b ɛ d',red:'ɹ ɛ d',head:'h ɛ d',
+said:'s ɛ d',bad:'b æ d',sad:'s æ d',dad:'d æ d',hot:'h ɑ t',cot:'k ɑ t',
+caught:'k ɔ t',thought:'θ ɔ t',law:'l ɔ',boy:'b ɔɪ',toy:'t ɔɪ',coin:'k ɔɪ n',
+choice:'tʃ ɔɪ s',book:'b ʊ k',put:'p ʊ t',good:'ɡ ʊ d',food:'f u d',boot:'b u t',
+blue:'b l u',cup:'k ʌ p',love:'l ʌ v',luck:'l ʌ k',up:'ʌ p',about:'ə b aʊ t',
+sofa:'s oʊ f ə',banana:'b ə n æ n ə',bird:'b ɝ d',word:'w ɝ d',nurse:'n ɝ s',
+butter:'b ʌ t ɚ',doctor:'d ɑ k t ɚ',letter:'l ɛ t ɚ',water:'w ɔ t ɚ',
+father:'f ɑ ð ɚ',mother:'m ʌ ð ɚ',brother:'b ɹ ʌ ð ɚ',this:'ð ɪ s',that:'ð æ t',
+thin:'θ ɪ n',then:'ð ɛ n',ship:'ʃ ɪ p',chip:'tʃ ɪ p',wish:'w ɪ ʃ',catch:'k æ tʃ',
+jump:'dʒ ʌ m p',age:'eɪ dʒ',measure:'m ɛ ʒ ɚ',vision:'v ɪ ʒ ə n',beige:'b eɪ ʒ',
+sing:'s ɪ ŋ',finger:'f ɪ ŋ ɡ ɚ',long:'l ɔ ŋ',no:'n oʊ',go:'ɡ oʊ',boat:'b oʊ t',
+goat:'ɡ oʊ t',though:'ð oʊ',face:'f eɪ s',day:'d eɪ',they:'ð eɪ',price:'p ɹ aɪ s',
+my:'m aɪ',sigh:'s aɪ',mouth:'m aʊ θ',now:'n aʊ',town:'t aʊ n',cow:'k aʊ',
+house:'h aʊ s',yes:'j ɛ s',yellow:'j ɛ l oʊ',few:'f j u',cute:'k j u t',
+music:'m j u z ɪ k',wet:'w ɛ t',away:'ə w eɪ',queen:'k w i n',van:'v æ n',
+fan:'f æ n',seven:'s ɛ v ə n',leaf:'l i f',feel:'f i l',milk:'m ɪ l k',
+lip:'l ɪ p',around:'ə ɹ aʊ n d',car:'k ɑ ɹ',park:'p ɑ ɹ k',sun:'s ʌ n',
+zoo:'z u',easy:'i z i',buzz:'b ʌ z',kissing:'k ɪ s ɪ ŋ',bus:'b ʌ s',
+hat:'h æ t',ahead:'ə h ɛ d',hammer:'h æ m ɚ',him:'h ɪ m',dinner:'d ɪ n ɚ',
+cap:'k æ p',skip:'s k ɪ p',back:'b æ k',bigger:'b ɪ ɡ ɚ',bag:'b æ ɡ',
+pat:'p æ t',spin:'s p ɪ n',top:'t ɑ p',stop:'s t ɑ p',rabbit:'ɹ æ b ɪ t',
+cab:'k æ b',ladder:'l æ d ɚ',coffee:'k ɔ f i',bath:'b æ θ',author:'ɔ θ ɚ',
+bathe:'b eɪ ð',nation:'n eɪ ʃ ə n',nature:'n eɪ tʃ ɚ',badger:'b æ dʒ ɚ',
+whale:'w eɪ l',witch:'w ɪ tʃ',bit:'b ɪ t',myth:'m ɪ θ',gate:'ɡ eɪ t',
+let:'l ɛ t',laugh:'l æ f',wolf:'w ʊ l f',birthday:'b ɝ θ d eɪ',
+elephant:'ɛ l ɪ f ə n t',computer:'k ə m p j u t ɚ',telephone:'t ɛ l ə f oʊ n',
+butterfly:'b ʌ t ɚ f l aɪ',playground:'p l eɪ ɡ ɹ aʊ n d',sunshine:'s ʌ n ʃ aɪ n',
+snowman:'s n oʊ m æ n',rainbow:'ɹ eɪ n b oʊ',spaceship:'s p eɪ s ʃ ɪ p',
+dinosaur:'d aɪ n ə s ɔ ɹ',alphabet:'æ l f ə b ɛ t',hospital:'h ɑ s p ɪ t ə l',
+vacation:'v eɪ k eɪ ʃ ə n',tomorrow:'t ə m ɑ ɹ oʊ',hamburger:'h æ m b ɝ ɡ ɚ',
+strawberry:'s t ɹ ɔ b ɛ ɹ i',vegetable:'v ɛ dʒ t ə b ə l',library:'l aɪ b ɹ ɛ ɹ i',
+calendar:'k æ l ə n d ɚ',broccoli:'b ɹ ɑ k ə l i',potato:'p ə t eɪ t oʊ',
+tomato:'t ə m eɪ t oʊ',umbrella:'ʌ m b ɹ ɛ l ə',kangaroo:'k æ ŋ ɡ ɚ u',
+alligator:'æ l ə ɡ eɪ t ɚ',elevator:'ɛ l ə v eɪ t ɚ',microphone:'m aɪ k ɹ ə f oʊ n',
+octopus:'ɑ k t ə p ə s',piano:'p i æ n oʊ',guitar:'ɡ ɪ t ɑ ɹ',robot:'ɹ oʊ b ɑ t',
+penguin:'p ɛ ŋ ɡ w ɪ n',dolphin:'d ɑ l f ɪ n',turtle:'t ɝ t ə l',spider:'s p aɪ d ɚ',
+dragon:'d ɹ æ ɡ ə n',monster:'m ɑ n s t ɚ',pumpkin:'p ʌ m p k ɪ n',
+bubble:'b ʌ b ə l',cupcake:'k ʌ p k eɪ k',popcorn:'p ɑ p k ɔ ɹ n',
+play:'p l eɪ',slide:'s l aɪ d',swing:'s w ɪ ŋ',window:'w ɪ n d oʊ',
+table:'t eɪ b ə l',chair:'tʃ ɛ ɹ',pencil:'p ɛ n s ə l',paper:'p eɪ p ɚ',
+scissors:'s ɪ z ɚ z',crayon:'k ɹ eɪ ɑ n',teacher:'t i tʃ ɚ',student:'s t u d ə n t',
+friend:'f ɹ ɛ n d',family:'f æ m ə l i',baby:'b eɪ b i',sister:'s ɪ s t ɚ',
+grandma:'ɡ ɹ æ n d m ɑ',grandpa:'ɡ ɹ æ n d p ɑ',tiger:'t aɪ ɡ ɚ',
+lion:'l aɪ ə n',monkey:'m ʌ ŋ k i',giraffe:'dʒ ɚ æ f',zebra:'z i b ɹ ə',
+purple:'p ɝ p ə l',orange:'ɔ ɹ ə n dʒ',silver:'s ɪ l v ɚ',golden:'ɡ oʊ l d ə n',
+kitchen:'k ɪ tʃ ə n',garden:'ɡ ɑ ɹ d ə n',morning:'m ɔ ɹ n ɪ ŋ',
+evening:'i v n ɪ ŋ',holiday:'h ɑ l ə d eɪ'
+};
+const WORD_INDEX={};
+Object.keys(WORDS).forEach(w=>{
+  WORDS[w].split(/\s+/).forEach(s=>{
+    if(!WORD_INDEX[s]) WORD_INDEX[s]=[];
+    WORD_INDEX[s].push(w);
+  });
+});
+const NORM=s=>s.toLowerCase().replace(/g/g,'ɡ').replace(/r/g,'ɹ').replace(/[\/\[\]·]/g,'').trim();
+
+const PLACES=[
+{id:'bilabial',n:'01',nm:'Bilabials',d:'Both lips sealed together'},
+{id:'labiodental',n:'02',nm:'Labiodentals',d:'Lower lip against upper front teeth'},
+{id:'dental',n:'03',nm:'Dentals',d:'Tongue tip at or between the teeth'},
+{id:'alveolar',n:'04',nm:'Alveolars',d:'Tongue tip at the ridge behind the teeth'},
+{id:'postalveolar',n:'05',nm:'Postalveolars',d:'Tongue blade just behind the ridge'},
+{id:'palatal',n:'06',nm:'Palatals',d:'Tongue body against the hard palate'},
+{id:'velar',n:'07',nm:'Velars',d:'Back of tongue against the soft palate'},
+{id:'nasal',n:'08',nm:'Nasal cavity',d:'Velum lowered, air exits through the nose'},
+{id:'pharynx',n:'09',nm:'Pharynx',d:'Not contrastive in English'},
+{id:'glottal',n:'10',nm:'Glottals',d:'Vocal folds, voicing and aspiration'},
+{id:'tongue',n:'11',nm:'Tongue body',d:'Shapes every vowel by height and backness'}
+];
+const MARK={
+  bilabial:[1.86,0.26], labiodental:[1.62,0.44], dental:[1.46,0.36],
+  alveolar:[1.18,0.40], postalveolar:[0.72,0.44], palatal:[0.16,0.46],
+  velar:[-0.44,0.42], nasal:[0.24,1.00], pharynx:[-0.86,-0.34],
+  glottal:[-0.24,-1.72], tongue:[0.40,0.00]
+};
+
+const VPOS={
+ i:[.06,.04],'ɪ':[.19,.18],e:[.22,.30],'ɛ':[.28,.54],'æ':[.30,.78],
+ 'ɑ':[.80,.90],'ɔ':[.84,.62],o:[.82,.32],'ʊ':[.80,.19],u:[.92,.05],
+ 'ʌ':[.50,.58],'ə':[.42,.44],'ɝ':[.50,.38],'ɚ':[.62,.50]
+};
+const DIPH=[
+ {s:'eɪ',a:[.22,.30],b:[.06,.04],lx:0,ly:-1},
+ {s:'aɪ',a:[.52,.90],b:[.06,.04],lx:-1,ly:1},
+ {s:'ɔɪ',a:[.84,.62],b:[.19,.18],lx:1,ly:-1},
+ {s:'oʊ',a:[.82,.32],b:[.92,.05],lx:1,ly:0},
+ {s:'aʊ',a:[.52,.90],b:[.92,.05],lx:0,ly:1}
+];
+const MP={
+ p:'pin / bin',b:'bin / pin',t:'tie / die',d:'die / tie',k:'coat / goat','ɡ':'goat / coat',
+ f:'fine / vine',v:'vine / fine','θ':'thin / tin','ð':'they / day',s:'sue / zoo',z:'zoo / sue',
+ 'ʃ':'ship / chip','ʒ':'measure / leisure',h:'hair / air','tʃ':'chin / shin','dʒ':'jail / Yale',
+ m:'met / net',n:'net / met','ŋ':'sing / sin',l:'light / right','ɹ':'right / light',
+ w:'wet / vet',j:'yet / jet','ʍ':'which / witch',
+ i:'beat / bit','ɪ':'bit / beat',e:'late / let','ɛ':'let / late','æ':'bat / bet',
+ 'ɑ':'cot / caught','ɔ':'caught / cot',o:'boat / bought','ʊ':'full / fool',u:'fool / full',
+ 'ʌ':'luck / lock','ə':'sofa / suffer','ɝ':'bird / bud','ɚ':'letter / lattice',
+ 'eɪ':'wait / wet','aɪ':'buy / bay','ɔɪ':'boil / bowl','oʊ':'boat / bat','aʊ':'bout / boat'
+};
+const VARIATION=[
+{t:'Cot and caught merger',s:'ɑ · ɔ',d:'Most American speakers merge /ɑ/ and /ɔ/ to a single low back vowel, making cot and caught, Don and dawn, stock and stalk homophones. Roughly 60% of the population. For those speakers /ɔ/ is simply not in the inventory, so scoring it as an omission would be a dialectal error on the clinician\'s part.'},
+{t:'Flapping',s:'t · d → ɾ',d:'Between a stressed and an unstressed vowel, both /t/ and /d/ become the alveolar tap [ɾ]. Butter and budder sound identical, latter and ladder become homophones, and atom rhymes with Adam. This is obligatory in normal connected speech.'},
+{t:'Glottalisation',s:'t → ʔ',d:'/t/ becomes a glottal stop before a syllabic nasal or in coda position: button, mountain, kitten, and in some dialects cat. Also common in British urban accents, where it targets intervocalic /t/ instead.'},
+{t:'g-dropping',s:'ɪŋ → ɪn',d:'The unstressed -ing suffix reduces to /ɪn/ in casual speech. It is the single most stigmatised feature in American English despite being used across every dialect and social class. Treat it as register rather than as a phonological error.'},
+{t:'/æ/ raising and tensing',s:'æ → eə',d:'A phonemic split in the Northern Cities Shift and Mid-Atlantic dialects. /æ/ becomes tense and raised before nasals and voiced stops but stays lax before voiceless stops, so a speaker shifts the vowel of bag far more than that of bat.'},
+{t:'Rhoticity',s:'ɹ · ɝ · ɚ',d:'Most American dialects are rhotic, meaning /ɹ/ is pronounced in coda position as in car, park and butter. Non-rhotic dialects such as older New York, Boston, Savannah and most of England drop it and lengthen the vowel instead.'},
+{t:'Yod-dropping',s:'ju → u',d:'After alveolar and dental consonants, /ju/ reduces to /u/: tune, due, new, student. Standard in most American speech. The exception is after labials and velars, where beauty and cute keep the yod.'},
+{t:'Dark /l/ and l-vocalisation',s:'l → ɫ · ʊ',d:'Syllable-final /l/ is velarised to [ɫ] in most American English. In some dialects it goes further and vocalises into a back vowel, so milk becomes [mɪʊk] and full becomes [fʊʊ].'},
+{t:'Vowel reduction',s:'V → ə',d:'Any unstressed vowel tends toward schwa. Banana has three vowels but only one is fully realised. Over-articulating unstressed syllables is a common cause of unnatural-sounding speech in therapy.'},
+{t:'Canadian Raising',s:'aɪ → ʌɪ',d:'Before voiceless consonants the onset of /aɪ/ and /aʊ/ raises, so about sounds like a-boat and writer no longer rhymes with rider. Found across Canada and in parts of the upper Midwest and New England.'},
+{t:'Pin and pen merger',s:'ɪ · ɛ → ɪ',d:'Before nasal consonants /ɪ/ and /ɛ/ neutralise in Southern and some Midland dialects, so pin and pen become homophones, as do him and hem. Roughly 20% of American speakers have this merger.'},
+{t:'Northern Cities Shift',s:'æ ɑ ɔ ʌ ɛ',d:'A chain shift rotating the short vowels around the vowel space: /æ/ raises, /ɑ/ fronts, /ɔ/ lowers, /ʌ/ backs, /ɛ/ centralises. Characteristic of Chicago, Detroit, Cleveland, Buffalo and Syracuse.'}
+];
+const DIAC=[
+{s:'[ʰ]',d:'Aspiration, the puff of air after a voiceless stop. pot, key, top.'},
+{s:'[ɾ]',d:'Alveolar tap, the flap in butter, ladder, atom, and Spanish pero.'},
+{s:'[ʔ]',d:'Glottal stop, the catch in button, mountain, and uh-oh.'},
+{s:'[ɫ]',d:'Velarised l, the dark l of feel, milk and full, with a raised tongue root.'},
+{s:'[n̩]',d:'Syllabic nasal, where the n carries its own syllable in button and cotton.'},
+{s:'[ã]',d:'Nasalisation, where the vowel of man, hand and sing resonates through the nose.'},
+{s:'[ː]',d:'Length mark, a lengthened vowel as in non-rhotic car or see.'},
+{s:'[̥]',d:'Devoicing ring, a normally voiced sound produced without vocal fold vibration.'},
+{s:'[‿]',d:'Linking mark, joining words pronounced without a pause: an‿apple.'},
+{s:'[̚]',d:'Unreleased, a stop with no audible burst. The final /t/ in cat.'}
+];
+
+/* ============================ 3D ============================ */
+const clip=document.getElementById('vtClip');
+const canvas=document.getElementById('vt');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:false,alpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.toneMapping=THREE.NoToneMapping;
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0xfaf5ea);
+const camera=new THREE.PerspectiveCamera(32,1,0.5,90);
+
+scene.add(new THREE.AmbientLight(0xffffff,2.00));
+const key=new THREE.DirectionalLight(0xfff6e6,2.20); key.position.set(5,6,7); scene.add(key);
+const fill=new THREE.DirectionalLight(0xdce8f4,0.55); fill.position.set(-7,-3,4); scene.add(fill);
+const rim=new THREE.PointLight(0xffdfae,9.0,34,0.8); rim.position.set(-4,3,-5); scene.add(rim);
+
+const root=new THREE.Group(); scene.add(root);
+
+const D2=THREE.DoubleSide;
+const M_FACE  =new THREE.MeshStandardMaterial({color:0xc9ae94,roughness:0.90,metalness:0.0,side:D2});
+const M_BONE  =new THREE.MeshStandardMaterial({color:0xeee2c0,roughness:0.66,metalness:0.0,side:D2});
+const M_TTH   =new THREE.MeshStandardMaterial({color:0xfcf7ea,roughness:0.40,metalness:0.0,side:D2});
+const M_CART  =new THREE.MeshStandardMaterial({color:0xd0a878,roughness:0.64,metalness:0.0,side:D2});
+const M_LIP   =new THREE.MeshStandardMaterial({color:0xc0392b,roughness:0.72,metalness:0.0,side:D2});
+const M_TONG  =new THREE.MeshStandardMaterial({color:0xc4433d,roughness:0.72,metalness:0.0,side:D2});
+const M_VEL   =new THREE.MeshStandardMaterial({color:0x74a844,roughness:0.78,metalness:0.0,side:D2});
+const M_NASALC=new THREE.MeshStandardMaterial({color:0xc45252,roughness:0.74,metalness:0.0,side:D2});
+const M_NASOPH=new THREE.MeshStandardMaterial({color:0xd4761a,roughness:0.74,metalness:0.0,side:D2});
+const M_OROPH =new THREE.MeshStandardMaterial({color:0x479634,roughness:0.74,metalness:0.0,side:D2});
+const M_LARPH =new THREE.MeshStandardMaterial({color:0x2571bd,roughness:0.74,metalness:0.0,side:D2});
+const M_ESO   =new THREE.MeshStandardMaterial({color:0xd04456,roughness:0.74,metalness:0.0,side:D2});
+const M_ORAL  =new THREE.MeshStandardMaterial({color:0x5e281c,roughness:0.80,metalness:0.0,side:D2});
+const M_SINUS =new THREE.MeshStandardMaterial({color:0xdeb014,roughness:0.68,metalness:0.0,side:D2});
+const M_MAR=new THREE.MeshStandardMaterial({color:0xe8b02a,roughness:0.42,metalness:0.0,
+  emissive:0xb87f18,emissiveIntensity:1.2,side:D2});
+
+const G_BONE=new THREE.Group(), G_CART=new THREE.Group(), G_AIR=new THREE.Group(),
+      G_PHAR=new THREE.Group(), G_NASAL=new THREE.Group(), G_SPINE=new THREE.Group();
+root.add(G_BONE,G_CART,G_AIR,G_PHAR,G_NASAL,G_SPINE);
+
+function shapeFrom(pts){
+  const c=new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(p[0],p[1],0)),true,'catmullrom',0.5);
+  const N=Math.max(80,pts.length*8);
+  const s=new THREE.Shape();
+  const p0=c.getPointAt(0);
+  s.moveTo(p0.x,p0.y);
+  for(let i=1;i<=N;i++){const p=c.getPointAt(i/N);s.lineTo(p.x,p.y);}
+  return s;
+}
+function slab(pts,depth,mat,z,bevel){
+  const g=new THREE.ExtrudeGeometry(shapeFrom(pts),{
+    depth,bevelEnabled:true,bevelThickness:bevel,bevelSize:bevel,bevelSegments:3,curveSegments:22});
+  g.translate(0,0,-depth/2);
+  g.computeVertexNormals();
+  const m=new THREE.Mesh(g,mat);
+  m.position.z=z;
+  return m;
+}
+
+const HEAD=[
+  [ 0.10, 2.80],
+  [-0.56, 2.76],
+  [-1.22, 2.62],
+  [-1.80, 2.38],
+  [-2.28, 2.04],
+  [-2.62, 1.62],
+  [-2.80, 1.14],
+  [-2.84, 0.62],
+  [-2.74, 0.10],
+  [-2.52,-0.40],
+  [-2.22,-0.86],
+  [-1.96,-1.30],
+  [-1.76,-1.74],
+  [-1.64,-2.18],
+  [-1.58,-2.62],
+  [-1.54,-3.02],
+  [-1.48,-3.20],
+  [-0.40,-3.20],
+  [ 0.06,-3.14],
+  [ 0.20,-2.84],
+  [ 0.24,-2.44],
+  [ 0.22,-2.02],
+  [ 0.18,-1.62],
+  [ 0.18,-1.28],
+  [ 0.30,-1.02],
+  [ 0.56,-0.82],
+  [ 0.90,-0.68],
+  [ 1.24,-0.56],
+  [ 1.50,-0.44],
+  [ 1.74,-0.24],
+  [ 1.72, 0.02],
+  [ 1.78, 0.26],
+  [ 1.74, 0.46],
+  [ 1.72, 0.60],
+  [ 1.82, 0.74],
+  [ 2.20, 0.98],
+  [ 2.30, 1.22],
+  [ 2.16, 1.50],
+  [ 2.06, 1.76],
+  [ 1.88, 2.10],
+  [ 1.54, 2.42],
+  [ 1.10, 2.64],
+  [ 0.60, 2.76]
+];
+root.add(slab(HEAD,0.40,M_FACE,-0.22,0.06));
+
+G_NASAL.add(slab([
+  [1.44,0.54],[0.90,0.52],[0.30,0.50],[-0.30,0.48],[-0.62,0.52],
+  [-0.84,0.66],[-0.92,0.88],[-0.80,1.04],[-0.42,1.12],
+  [0.10,1.12],[0.70,1.06],[1.20,0.92],[1.46,0.74]
+],0.16,M_NASALC,0.26,0.04));
+
+[[0.94,0.50,-0.28],[0.72,0.42,-0.18],[0.58,0.36,-0.10]].forEach(([x,r,len])=>{
+  const g=new THREE.SphereGeometry(1,20,12);
+  g.scale(0.72*len*3.2,r,0.09);
+  const m=new THREE.Mesh(g,M_NASALC);
+  m.position.set(x+0.18,0.78+(0.94-x)*0.06,0.30);
+  m.rotation.z=-0.06;
+  G_NASAL.add(m);
+});
+
+G_NASAL.add(slab([[0.60,1.30],[0.96,1.36],[1.14,1.24],[1.10,1.04],[0.84,0.96],[0.60,1.04]],0.14,M_SINUS,0.30,0.03));
+G_NASAL.add(slab([[1.06,0.80],[1.42,0.76],[1.58,0.58],[1.50,0.40],[1.18,0.38],[1.00,0.54]],0.14,M_SINUS,0.30,0.03));
+
+G_PHAR.add(slab([
+  [-0.60,0.46],[-0.84,0.44],[-0.98,0.56],[-1.06,0.78],[-1.04,1.00],
+  [-0.90,1.10],[-0.76,1.06],[-0.70,0.90],[-0.68,0.68],[-0.58,0.54]
+],0.16,M_NASOPH,0.22,0.04));
+
+G_PHAR.add(slab([
+  [-0.62,0.42],[-0.86,0.36],[-1.02,0.14],[-1.06,-0.20],[-1.04,-0.56],
+  [-0.96,-0.84],[-0.80,-0.92],[-0.68,-0.80],[-0.66,-0.48],[-0.64,-0.14],[-0.58,0.16]
+],0.16,M_OROPH,0.22,0.04));
+
+G_PHAR.add(slab([
+  [-0.72,-0.88],[-0.92,-1.00],[-1.00,-1.32],[-0.98,-1.72],[-0.88,-2.04],
+  [-0.72,-2.12],[-0.62,-2.00],[-0.62,-1.64],[-0.66,-1.28],[-0.68,-1.00]
+],0.16,M_LARPH,0.22,0.04));
+
+G_PHAR.add(slab([
+  [-0.74,-2.10],[-0.90,-2.26],[-0.96,-2.62],[-0.94,-3.02],[-0.88,-3.30],
+  [-0.70,-3.36],[-0.60,-3.10],[-0.60,-2.70],[-0.62,-2.38],[-0.68,-2.16]
+],0.16,M_ESO,0.22,0.04));
+
+G_AIR.add(slab([
+  [1.46,0.36],[0.80,0.32],[0.10,0.28],[-0.44,0.26],[-0.60,0.02],
+  [-0.64,-0.32],[-0.60,-0.66],[-0.46,-0.90],[-0.10,-1.00],
+  [0.50,-0.96],[1.00,-0.82],[1.30,-0.58],[1.50,-0.26],[1.54,0.06]
+],0.14,M_ORAL,0.24,0.03));
+
+G_BONE.add(slab([
+  [1.44,0.56],[1.00,0.54],[0.44,0.50],[-0.10,0.46],[-0.50,0.42],
+  [-0.52,0.28],[-0.08,0.26],[0.50,0.30],[1.06,0.34],[1.46,0.38]
+],0.16,M_BONE,0.28,0.04));
+
+G_BONE.add(slab([
+  [1.32,-0.10],[1.28,-0.30],[0.90,-0.44],[0.30,-0.54],[-0.24,-0.52],
+  [-0.54,-0.40],[-0.68,-0.12],[-0.72,0.22],[-0.66,0.44],[-0.54,0.46],
+  [-0.50,0.24],[-0.48,-0.06],[-0.34,-0.22],[0.20,-0.30],[0.86,-0.26],[1.26,-0.16]
+],0.22,M_BONE,0.26,0.04));
+
+G_BONE.add(slab([
+  [-0.56,-0.62],[-0.70,-0.74],[-0.76,-0.92],[-0.66,-1.04],
+  [-0.50,-1.00],[-0.42,-0.84],[-0.46,-0.68]
+],0.20,M_BONE,0.26,0.03));
+
+[1.10,0.60,0.10,-0.40,-0.90,-1.40].forEach((y,i)=>{
+  const b=new THREE.Mesh(new THREE.BoxGeometry(0.58,0.42,0.66),M_BONE);
+  b.position.set(-1.86,y,0.20); b.rotation.z=(i-2.5)*0.022;
+  G_SPINE.add(b);
+  const sp=new THREE.Mesh(new THREE.BoxGeometry(0.44,0.15,0.32),M_BONE);
+  sp.position.set(-2.34,y-0.05,0.20); sp.rotation.z=-0.24;
+  G_SPINE.add(sp);
+  const la=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.20,0.42),M_BONE);
+  la.position.set(-1.60,y,0.20); la.rotation.z=0.18;
+  G_SPINE.add(la);
+});
+
+const velum=slab([
+  [-0.48,0.44],[-0.70,0.42],[-0.88,0.28],[-0.96,0.06],
+  [-0.98,-0.22],[-0.94,-0.48],[-0.82,-0.66],[-0.68,-0.70],
+  [-0.60,-0.52],[-0.62,-0.26],[-0.60,0.00],[-0.56,0.26]
+],0.16,M_VEL,0.32,0.04);
+G_AIR.add(velum);
+
+const uvulaGeo=new THREE.SphereGeometry(1,18,14);
+uvulaGeo.scale(0.075,0.17,0.075);
+const uvula=new THREE.Mesh(uvulaGeo,M_VEL);
+uvula.position.set(-0.80,-0.84,0.32);
+G_AIR.add(uvula);
+
+const epi=slab([
+  [0,0.36],[0.20,0.20],[0.26,-0.04],[0.16,-0.28],[-0.04,-0.34],
+  [-0.20,-0.18],[-0.24,0.06],[-0.16,0.26]
+],0.16,M_CART,0.30,0.03);
+epi.position.set(-0.46,-1.00,0.30);
+epi.rotation.z=0.46;
+G_CART.add(epi);
+
+const thy=slab([
+  [0,0.62],[0.30,0.36],[0.34,-0.08],[0.18,-0.48],[-0.12,-0.56],[-0.34,-0.24],[-0.30,0.30]
+],0.26,M_CART,0.28,0.04);
+thy.position.set(-0.14,-1.58,0.28);
+G_CART.add(thy);
+
+const cri=new THREE.Mesh(new THREE.TorusGeometry(0.24,0.072,10,36),M_CART);
+cri.position.set(-0.16,-2.16,0.30);
+cri.rotation.y=Math.PI*0.5;
+cri.scale.set(1,1,1.35);
+G_CART.add(cri);
+
+[[-0.05,1],[0.05,-1]].forEach(([dz,fl])=>{
+  const g=new THREE.SphereGeometry(1,12,8);
+  g.scale(0.085,0.05,0.032);
+  const m=new THREE.Mesh(g,M_CART);
+  m.position.set(-0.02,-1.86,0.30+dz);
+  m.rotation.z=fl*0.30;
+  G_CART.add(m);
+});
+
+for(let i=0;i<7;i++){
+  const y=-2.42-i*0.20;
+  const m=new THREE.Mesh(new THREE.TorusGeometry(0.20,0.050,8,28),M_CART);
+  m.position.set(-0.22,y,0.28);
+  m.rotation.y=Math.PI*0.5;
+  m.scale.set(1,1,1.3);
+  G_CART.add(m);
+}
+
+const NS=52,NR=26;
+const tongueGeo=new THREE.BufferGeometry();
+const tPos=new Float32Array(NS*NR*3);
+const tIdx=[],tUv=new Float32Array(NS*NR*2);
+for(let i=0;i<NS-1;i++)for(let j=0;j<NR;j++){
+  const a=i*NR+j,b=(i+1)*NR+j,c=(i+1)*NR+((j+1)%NR),d=i*NR+((j+1)%NR);
+  tIdx.push(a,b,d,b,c,d);
+}
+for(let i=0;i<NS;i++)for(let j=0;j<NR;j++){
+  tUv[(i*NR+j)*2]=i/(NS-1); tUv[(i*NR+j)*2+1]=j/NR;
+}
+tongueGeo.setAttribute('position',new THREE.BufferAttribute(tPos,3));
+tongueGeo.setAttribute('uv',new THREE.BufferAttribute(tUv,2));
+tongueGeo.setIndex(tIdx);
+const tongue=new THREE.Mesh(tongueGeo,M_TONG);
+tongue.position.z=0.36;
+G_AIR.add(tongue);
+
+const DORSAL=[[0,-0.12],[0.12,-0.02],[0.30,0.02],[0.50,0.02],[0.70,-0.02],[0.86,-0.26],[1.00,-0.62]];
+const THICK =[[0,0.20],[0.15,0.32],[0.40,0.50],[0.70,0.62],[1.00,0.34]];
+const WIDTHV=[[0,0.10],[0.12,0.26],[0.35,0.46],[0.60,0.50],[0.82,0.48],[1.00,0.34]];
+function pcw(c,s){
+  if(s<=c[0][0]) return c[0][1];
+  for(let i=1;i<c.length;i++){
+    if(s<=c[i][0]){
+      const u=(s-c[i-1][0])/(c[i][0]-c[i-1][0]);
+      return c[i-1][1]+(c[i][1]-c[i-1][1])*(u*u*(3-2*u));
+    }
+  }
+  return c[c.length-1][1];
+}
+let curF=0.42,curH=0.44,tgtF=0.42,tgtH=0.44;
+function buildTongue(f,h){
+  const s0=0.15+0.58*f;
+  const A=0.22-0.52*h;
+  const s0c=1.0-s0;
+  const comp=-0.28*A;
+  for(let i=0;i<NS;i++){
+    const s=i/(NS-1);
+    let dor=pcw(DORSAL,s);
+    dor+=A*Math.exp(-Math.pow((s-s0)/0.26,2));
+    dor+=comp*Math.exp(-Math.pow((s-s0c)/0.34,2));
+    const th=pcw(THICK,s);
+    const ven=dor-th;
+    const yc=(dor+ven)/2,hh=(dor-ven)/2;
+    const w=pcw(WIDTHV,s);
+    const x=1.30-1.85*s;
+    const wf=0.86+0.14*Math.sin(s*Math.PI);
+    for(let j=0;j<NR;j++){
+      const a=j/NR*Math.PI*2;
+      const z=w*wf*Math.cos(a);
+      let y=yc+hh*Math.sin(a);
+      if(Math.sin(a)>0){
+        y-=0.05*Math.exp(-(z*z)/0.010)*(0.4+0.6*Math.sin(s*Math.PI));
+      }
+      const k=(i*NR+j)*3;
+      tPos[k]=x; tPos[k+1]=y; tPos[k+2]=z;
+    }
+  }
+  tongueGeo.attributes.position.needsUpdate=true;
+  tongueGeo.computeVertexNormals();
+  tongueGeo.computeBoundingSphere();
+}
+buildTongue(curF,curH);
+
+function arch(cx,cy,rx,ry,a0,a1,n,w,h,d,z){
+  const g=new THREE.Group();
+  for(let i=0;i<n;i++){
+    const u=n===1?0.5:i/(n-1);
+    const a=a0+(a1-a0)*u;
+    const x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;
+    const tx=-Math.sin(a)*rx,ty=Math.cos(a)*ry;
+    const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M_TTH);
+    m.position.set(x,y,z);
+    m.rotation.z=Math.atan2(ty,tx)-Math.PI*0.5;
+    g.add(m);
+  }
+  return g;
+}
+root.add(arch(0.48,0.44,0.98,0.22,-0.30,0.62,8,0.10,0.15,0.92,0.38));
+root.add(arch(0.48,0.20,0.92,0.20,-0.38,0.66,8,0.09,0.13,0.90,0.38));
+
+[[1.84,0.42,-0.14,0.95],[1.80,0.08,0.14,0.90]].forEach(([x,y,rz,sx])=>{
+  const m=new THREE.Mesh(new THREE.TorusGeometry(0.22,0.09,10,30,Math.PI*1.0),M_LIP);
+  m.position.set(x,y,0.42);
+  m.rotation.z=rz+Math.PI*0.5;
+  m.rotation.y=Math.PI*0.5;
+  m.scale.set(1,1,1.4*sx);
+  root.add(m);
+});
+
+const markers=[];
+PLACES.forEach(p=>{
+  const g=new THREE.Group();
+  const mp=MARK[p.id];
+  g.position.set(mp[0],mp[1],0.92);
+  const hit=new THREE.Mesh(new THREE.SphereGeometry(0.30,10,8),new THREE.MeshBasicMaterial({visible:false}));
+  hit.userData.id=p.id; g.add(hit);
+  const dot=new THREE.Mesh(new THREE.SphereGeometry(0.072,14,10),M_MAR.clone()); g.add(dot);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(0.17,0.017,6,28),M_MAR.clone());
+  ring.rotation.x=Math.PI*0.5; g.add(ring);
+  root.add(g);
+  markers.push({id:p.id,group:g,dot,ring});
+});
+
+/* ============ PLATE SHADER ============ */
+const PLATE_FS=`
+varying vec2 vUv;
+uniform sampler2D tScene;
+uniform sampler2D tDepth;
+uniform vec2 uRes;
+uniform vec2 uDots;
+uniform float uNear;
+uniform float uFar;
+
+float vzi(float d){
+  return abs((uNear*uFar)/((uFar-uNear)*d - uFar));
+}
+float lum(vec3 c){ return dot(c, vec3(0.299,0.587,0.114)); }
+float hash(vec2 p){ p=fract(p*vec2(0.1031,0.10369)); p+=dot(p,p.yx+33.33); return fract((p.x+p.y)*p.y); }
+
+vec3 sig(vec3 c){
+  vec3 ch=c-vec3(lum(c));
+  float m=length(ch);
+  vec3 d=normalize(ch+vec3(1e-5));
+  return floor(d*4.0)*step(0.030,m);
+}
+
+void main(){
+  vec2 px=1.0/uRes;
+  vec3 paper=vec3(0.972,0.954,0.912);
+
+  float d0=texture2D(tDepth,vUv).x;
+  if(d0>0.99995){
+    float g0=hash(vUv*uRes*0.9);
+    gl_FragColor=vec4(paper+(g0-0.5)*0.016,1.0);
+    return;
+  }
+
+  vec3 col=texture2D(tScene,vUv).rgb;
+  float z0=vzi(d0);
+
+  float L=lum(col);
+  float Lp=floor(L*5.0+0.5)/5.0;
+  vec3 ch=col-vec3(L);
+  vec3 base=clamp(vec3(Lp)*0.94+ch*1.70,0.0,1.0);
+
+  float de=0.0;
+  float ce=0.0;
+  vec3 s0=sig(col);
+
+  for(int j=-1;j<=1;j++){
+    for(int i=-1;i<=1;i++){
+      if(i==0 && j==0) continue;
+      vec2 o=vec2(float(i),float(j))*px;
+      float dz=vzi(texture2D(tDepth,vUv+o).x);
+      de=max(de,abs(dz-z0)/z0);
+      ce=max(ce,length(sig(texture2D(tScene,vUv+o).rgb)-s0));
+    }
+  }
+
+  float eD=smoothstep(0.012,0.055,de);
+  float eC=smoothstep(0.90,2.60,ce);
+  float line=clamp(max(eD,eC*0.78),0.0,1.0);
+
+  float tone=1.0-L;
+  vec2 hp=fract(vUv*uDots)-0.5;
+  float hr=length(hp);
+  float dr=0.50*sqrt(clamp(tone*1.20,0.0,1.0));
+  float dm=smoothstep(dr,dr+0.20,hr);
+  vec3 screened=mix(base*0.86,base,dm);
+
+  vec3 outc=mix(screened,vec3(0.115,0.078,0.056),line*0.88);
+
+  float g=hash(vUv*uRes*0.9);
+  outc+=(g-0.5)*0.018;
+
+  gl_FragColor=vec4(clamp(outc,0.0,1.0),1.0);
+}`;
+
+/* ============ ASCII PIPELINE ============ */
+const RAMP=' .·:;~=-+*x#%@░▒▓█';
+const RN=RAMP.length;
+const ATX=16,ATY=Math.ceil(RN/ATX);
+const atlas=document.createElement('canvas');
+atlas.width=ATX*64; atlas.height=ATY*64;
+{
+  const c=atlas.getContext('2d');
+  c.fillStyle='#000'; c.fillRect(0,0,atlas.width,atlas.height);
+  c.font='bold 56px "JetBrains Mono",Menlo,Consolas,monospace';
+  c.textAlign='center'; c.textBaseline='middle'; c.fillStyle='#fff';
+  for(let i=0;i<RN;i++) c.fillText(RAMP[i],(i%ATX)*64+32,Math.floor(i/ATX)*64+34);
+}
+const glyphTex=new THREE.CanvasTexture(atlas);
+glyphTex.flipY=false;
+glyphTex.minFilter=THREE.LinearFilter; glyphTex.magFilter=THREE.LinearFilter;
+glyphTex.generateMipmaps=false;
+
+const VS=`varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.0,1.0); }`;
+
+const DSF=`
+varying vec2 vUv; uniform sampler2D tScene; uniform vec2 uGrid;
+float lum(vec3 c){ return dot(c,vec3(0.299,0.587,0.114)); }
+void main(){
+  vec2 cell=floor(vUv*uGrid);
+  vec2 base=(cell+0.5)/uGrid;
+  vec2 o=0.52/uGrid;
+  vec3 acc=vec3(0.0);
+  float mn=1.0,mx=0.0;
+  for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++){
+    vec3 lin=texture2D(tScene,base+vec2(float(i),float(j))*o).rgb;
+    vec3 s=pow(max(lin,vec3(0.0)),vec3(0.4545));
+    float l=lum(s);
+    acc+=s; mn=min(mn,l); mx=max(mx,l);
+  }
+  gl_FragColor=vec4(acc/9.0,mx-mn);
+}`;
+
+const CSF=`
+varying vec2 vUv;
+uniform sampler2D tGrid, tGlyph;
+uniform vec2 uGrid, uAtlas;
+float lum(vec3 c){ return dot(c,vec3(0.299,0.587,0.114)); }
+float hash(vec2 p){ p=fract(p*vec2(0.1031,0.10369)); p+=dot(p,p.yx+33.33); return fract((p.x+p.y)*p.y); }
+float gl(float idx, vec2 f){
+  vec2 ac=vec2(mod(idx,uAtlas.x),floor(idx/uAtlas.x));
+  return texture2D(tGlyph,(ac+vec2(f.x,1.0-f.y))/uAtlas).r;
+}
+void main(){
+  vec2 gp=vUv*uGrid;
+  vec2 cell=floor(gp); vec2 f=fract(gp);
+  vec4 g=texture2D(tGrid,(cell+0.5)/uGrid);
+  vec3 col=g.rgb;
+  float rng=g.a;
+  float l=lum(col);
+
+  float d=clamp((0.94-l)/0.58,0.0,1.0);
+  d=pow(d,0.58);
+  float e=clamp(rng*3.4,0.0,1.0);
+  d=max(d,e*0.80);
+  d+=(hash(cell)-0.5)*0.026;
+  d=clamp(d,0.0,1.0);
+
+  float ci=floor(d*17.99);
+  float a=gl(ci,f);
+  a=clamp(a*1.85,0.0,1.0);
+
+  vec3 chroma=col-vec3(l);
+  float m=length(chroma);
+  vec3 hue=chroma/max(m,1e-4);
+  float amp=clamp(m*4.2,0.0,1.0);
+  float pale=smoothstep(0.62,0.92,l);
+  amp*=(1.0-pale*0.80);
+
+  vec3 ink=vec3(0.175)+hue*amp*0.78;
+  ink*=1.0-d*0.60;
+  ink=clamp(ink,0.0,1.0);
+
+  vec3 paper=vec3(0.970,0.950,0.906);
+  vec3 outc=mix(paper,ink,a);
+  float gr=hash(vUv*vec2(311.0,197.0));
+  outc+=(gr-0.5)*0.014;
+  gl_FragColor=vec4(outc,1.0);
+}`;
+
+const dsMat=new THREE.ShaderMaterial({uniforms:{tScene:{value:null},uGrid:{value:new THREE.Vector2(1,1)}},vertexShader:VS,fragmentShader:DSF,depthTest:false,depthWrite:false});
+const csMat=new THREE.ShaderMaterial({uniforms:{tGrid:{value:null},tGlyph:{value:glyphTex},uGrid:{value:new THREE.Vector2(1,1)},uAtlas:{value:new THREE.Vector2(ATX,ATY)}},vertexShader:VS,fragmentShader:CSF,depthTest:false,depthWrite:false});
+const plateMat=new THREE.ShaderMaterial({
+  uniforms:{
+    tScene:{value:null}, tDepth:{value:null},
+    uRes:{value:new THREE.Vector2(1,1)},
+    uDots:{value:new THREE.Vector2(96,96)},
+    uNear:{value:0.5}, uFar:{value:90}
+  },
+  vertexShader:VS, fragmentShader:PLATE_FS, depthTest:false, depthWrite:false
+});
+
+const qScene=new THREE.Scene();
+const qCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+const quad=new THREE.Mesh(new THREE.PlaneGeometry(2,2),dsMat);
+quad.frustumCulled=false; qScene.add(quad);
+
+let mode='plate';
+let CELL=1.5, SS=1.5;
+let W=1,H=1,cols=1,rows=1,sceneRT=null,gridRT=null,depthTex=null;
+
+function build(){
+  W=Math.max(2,clip.clientWidth); H=Math.max(2,clip.clientHeight);
+  renderer.setSize(W,H,false);
+  camera.aspect=W/H; camera.updateProjectionMatrix();
+
+  CELL = (mode==='ascii') ? 4.0 : 1.5;
+  SS   = (mode==='ascii') ? 1.6 : 1.4;
+
+  cols=Math.max(24,Math.floor(W/CELL));
+  rows=Math.max(20,Math.floor(H/CELL));
+
+  const bw=Math.round(W*SS), bh=Math.round(H*SS);
+
+  if(sceneRT){ sceneRT.dispose(); gridRT.dispose(); depthTex.dispose(); }
+
+  depthTex=new THREE.DepthTexture(bw,bh);
+  depthTex.minFilter=THREE.NearestFilter;
+  depthTex.magFilter=THREE.NearestFilter;
+
+  sceneRT=new THREE.WebGLRenderTarget(bw,bh,{
+    minFilter:THREE.LinearFilter, magFilter:THREE.LinearFilter,
+    depthBuffer:true, depthTexture:depthTex
+  });
+  gridRT=new THREE.WebGLRenderTarget(cols,rows,{
+    minFilter:THREE.NearestFilter, magFilter:THREE.NearestFilter, depthBuffer:false
+  });
+
+  dsMat.uniforms.tScene.value=sceneRT.texture;
+  dsMat.uniforms.uGrid.value.set(cols,rows);
+  csMat.uniforms.tGrid.value=gridRT.texture;
+  csMat.uniforms.uGrid.value.set(cols,rows);
+
+  plateMat.uniforms.tScene.value=sceneRT.texture;
+  plateMat.uniforms.tDepth.value=depthTex;
+  plateMat.uniforms.uRes.value.set(bw,bh);
+  plateMat.uniforms.uDots.value.set(Math.max(40,W/7.0), Math.max(40,H/7.0));
+  plateMat.uniforms.uNear.value=camera.near;
+  plateMat.uniforms.uFar.value=camera.far;
+}
+
+/* ============ UI ============ */
+document.getElementById('phcount').textContent=String(PH.length).padStart(2,'0');
+const placesEl=document.getElementById('places');
+PLACES.forEach(p=>{
+  const chips=PH.filter(x=>x.reg.includes(p.id)).map(x=>x.s).join(' ');
+  const b=document.createElement('button');
+  b.className='place'; b.dataset.id=p.id;
+  b.innerHTML=`<span class="n">${p.n}</span><span><span class="pn">${p.nm}</span><span class="pd">${p.d}</span><span class="chips">${chips||'—'}</span></span>`;
+  placesEl.appendChild(b);
+});
+const vlistEl=document.getElementById('vlist');
+['i','ɪ','e','ɛ','æ','ɑ','ɔ','o','ʊ','u','ʌ','ə','ɝ','ɚ','eɪ','aɪ','ɔɪ','oʊ','aʊ'].forEach(s=>{
+  const p=PH.find(x=>x.s===s); if(!p) return;
+  const sub=p.cat==='diphthong'?'Diphthong · closing':p.cat==='rhotic'?'R-coloured vowel':`${p.hgt} · ${p.bck}`;
+  const b=document.createElement('button');
+  b.className='place'; b.dataset.vs=s;
+  b.innerHTML=`<span class="n">${s}</span><span><span class="pn">${p.ex[0]}</span><span class="pd">${sub}</span><span class="chips">${p.ex.slice(1).join('  ')}</span></span>`;
+  vlistEl.appendChild(b);
+});
+const pad=document.getElementById('tonguePad');
+['i','ɪ','ɛ','æ','ɑ','ɔ','ʊ','u','ʌ','ə'].forEach(s=>{
+  const b=document.createElement('button');
+  b.className='vbtn'; b.dataset.tp=s; b.textContent=s;
+  pad.appendChild(b);
+});
+const TL=[100,60],TR=[400,60],BR=[460,400],BL=[60,400];
+function projV(f,h){
+  const x=(1-h)*((1-f)*TL[0]+f*TR[0])+h*((1-f)*BL[0]+f*BR[0]);
+  return [x,60+h*340];
+}
+(function(){
+  const svg=document.getElementById('vsvg');
+  let o='';
+  o+=`<path class="gquad" d="M ${TL[0]} ${TL[1]} L ${TR[0]} ${TR[1]} L ${BR[0]} ${BR[1]} L ${BL[0]} ${BL[1]} Z"/>`;
+  for(let i=1;i<4;i++){
+    const h=i/4,a=projV(0,h),b=projV(1,h);
+    o+=`<line class="ggrid" x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;
+  }
+  for(let i=1;i<3;i++){
+    const f=i/3,a=projV(f,0),b=projV(f,1);
+    o+=`<line class="ggrid" x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;
+  }
+  o+=`<text class="gax" x="${TL[0]}" y="36">FRONT</text>`;
+  o+=`<text class="gax" x="${TR[0]}" y="36" text-anchor="end">BACK</text>`;
+  o+=`<text class="gax" x="20" y="${TL[1]}" text-anchor="middle" transform="rotate(-90 20 ${TL[1]})">CLOSE</text>`;
+  o+=`<text class="gax" x="20" y="${BL[1]}" text-anchor="middle" transform="rotate(-90 20 ${BL[1]})">OPEN</text>`;
+  o+=`<defs><marker id="ga" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7c8b5f"/></marker></defs>`;
+  DIPH.forEach(d=>{
+    const a=projV(d.a[0],d.a[1]),b=projV(d.b[0],d.b[1]);
+    const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;
+    const sx=a[0]+ux*26,sy=a[1]+uy*26,ex=b[0]-ux*26,ey=b[1]-uy*26;
+    const px=-uy,py=ux,cx=(sx+ex)/2+px*22,cy=(sy+ey)/2+py*22;
+    o+=`<g class="peb" data-vs="${d.s}">
+      <path class="parrow" d="M ${sx} ${sy} Q ${cx} ${cy} ${ex} ${ey}" marker-end="url(#ga)"/>
+      <text class="plab" x="${cx+d.lx*14}" y="${cy+d.ly*18}">${d.s}</text>
+      <ellipse cx="${b[0]}" cy="${b[1]}" rx="18" ry="16" fill="transparent"/>
+    </g>`;
+  });
+  Object.keys(VPOS).forEach(s=>{
+    const v=VPOS[s],pt=projV(v[0],v[1]);
+    const rot=(s.charCodeAt(0)%9)-4;
+    o+=`<g class="peb" data-vs="${s}">
+      <ellipse cx="${pt[0]}" cy="${pt[1]}" rx="19" ry="17" fill="#faf5ea" stroke="rgba(36,26,18,.34)" stroke-width="1.3" transform="rotate(${rot} ${pt[0]} ${pt[1]})"/>
+      <text x="${pt[0]}" y="${pt[1]}">${s}</text>
+    </g>`;
+  });
+  svg.innerHTML=o;
+})();
+
+const LAB_SLOT={
+  bilabial:[0.91,0.55], labiodental:[0.91,0.44], dental:[0.90,0.33],
+  alveolar:[0.86,0.22], postalveolar:[0.66,0.08], palatal:[0.38,0.05],
+  velar:[0.14,0.09], nasal:[0.10,0.24], pharynx:[0.09,0.50],
+  glottal:[0.11,0.76], tongue:[0.66,0.92]
+};
+const LAB_SHORT={
+  bilabial:'BILABIAL', labiodental:'LABIODENTAL', dental:'DENTAL',
+  alveolar:'ALVEOLAR', postalveolar:'POSTALVEOLAR', palatal:'PALATAL',
+  velar:'VELAR', nasal:'NASAL CAVITY', pharynx:'PHARYNX',
+  glottal:'GLOTTAL', tongue:'TONGUE BODY'
+};
+const labWrap=document.getElementById('vtLabels');
+const leadEl=document.getElementById('vtLead');
+const labEls={};
+PLACES.forEach(p=>{
+  const d=document.createElement('div');
+  d.className='vtlab';
+  d.textContent=LAB_SHORT[p.id]||p.nm;
+  d.style.left=(LAB_SLOT[p.id][0]*100)+'%';
+  d.style.top=(LAB_SLOT[p.id][1]*100)+'%';
+  d.addEventListener('click',e=>{e.stopPropagation();setReg(p.id);});
+  labWrap.appendChild(d);
+  labEls[p.id]=d;
+});
+let activeM=null;
+
+const CATS=[{id:'all',l:'All'},{id:'consonant',l:'Consonants'},{id:'vowel',l:'Vowels'},{id:'diphthong',l:'Diphthongs'},{id:'rhotic',l:'R-coloured'}];
+const pillsEl=document.getElementById('pills');
+const pillsPlacesEl=document.getElementById('pillsPlaces');
+CATS.forEach(c=>{
+  const b=document.createElement('button');
+  b.className='pill'+(c.id==='all'?' on':''); b.dataset.cat=c.id; b.textContent=c.l;
+  pillsEl.appendChild(b);
+});
+PLACES.forEach(p=>{
+  const b=document.createElement('button');
+  b.className='pill pl'; b.dataset.reg=p.id; b.textContent=p.nm;
+  pillsPlacesEl.appendChild(b);
+});
+
+let cat='all',reg=null,q='',wordSyms=null,wordQuery=null;
+const gridEl=document.getElementById('grid'),tallyEl=document.getElementById('tally');
+const wordcardEl=document.getElementById('wordcard');
+function buildHay(p){
+  const words=(WORD_INDEX[p.s]||[]).join(' ');
+  return (p.s+' '+p.nm+' '+p.ex.join(' ')+' '+(p.plc||'')+' '+(p.mnr||'')+' '+
+    (p.hgt||'')+' '+(p.bck||'')+' '+words).toLowerCase();
+}
+function renderGrid(){
+  let list;
+  if(wordSyms){
+    list=PH.filter(p=>wordSyms.includes(p.s));
+  }else{
+    const nq=NORM(q);
+    list=PH.filter(p=>{
+      if(cat!=='all'&&p.cat!==cat) return false;
+      if(!nq&&!q) return true;
+      return buildHay(p).includes(nq)||buildHay(p).includes(q.toLowerCase());
+    });
+  }
+  const hitSet=wordSyms?new Set(wordSyms):(NORM(q)?new Set(list.filter(p=>buildHay(p).includes(NORM(q))).map(p=>p.s)):null);
+  gridEl.innerHTML=list.map(p=>{
+    const dim=(reg&&!p.reg.includes(reg))?' dim':'';
+    const hit=(hitSet&&hitSet.has(p.s))?' hit':'';
+    const t=p.variant?'<span class="tag v">VAR</span>'
+      :p.cat==='diphthong'?'<span class="tag">DIPH</span>'
+      :p.cat==='rhotic'?'<span class="tag">RHOTIC</span>'
+      :p.vc===1?'<span class="tag">VOICED</span>'
+      :p.vc===0?'<span class="tag">VOICELESS</span>'
+      :'<span class="tag">VOWEL</span>';
+    return `<button class="card${dim}${hit}" data-id="${p.s}">
+      <span class="s">${p.s}</span>
+      <span class="nm">${p.nm}</span>
+      <span class="foot"><span>${p.ex[0]}</span>${t}</span>
+    </button>`;
+  }).join('');
+  const rn=reg?(PLACES.find(x=>x.id===reg)||{}).nm:'';
+  const cn=CATS.find(c=>c.id===cat).l.toUpperCase();
+  let txt=`<span><b>${list.length}</b> of ${PH.length} · ${cn}`;
+  if(rn) txt+=' · '+rn.toUpperCase();
+  if(q) txt+=' · “'+q+'”';
+  txt+='</span>';
+  if(reg||cat!=='all'||q) txt+='<button class="clr" id="clr">✕ Clear all filters</button>';
+  tallyEl.innerHTML=txt;
+  const c=document.getElementById('clr');
+  if(c) c.addEventListener('click',clearAll);
+}
+function clearAll(){
+  reg=null; cat='all'; q=''; wordSyms=null; wordQuery=null;
+  document.getElementById('search').value='';
+  pillsEl.querySelectorAll('.pill').forEach(x=>x.classList.toggle('on',x.dataset.cat==='all'));
+  syncPlace(); renderGrid(); renderWordCard();
+}
+function renderWordCard(){
+  if(wordSyms){
+    wordcardEl.className='wordcard on';
+    wordcardEl.innerHTML=`
+      <div class="wchead">Word breakdown · General American</div>
+      <div class="wrow">
+        <div class="wword">${wordQuery}</div>
+        <div class="wsyms">${wordSyms.map(s=>`<button class="wsym" data-s="${s}">${s}</button>`).join('')}</div>
+      </div>
+      <div class="wslashes">/${wordSyms.join('')}/</div>
+      <div class="wnote">Accent can change these symbols. The cot and caught merger, the pin and pen merger, and Canadian Raising each shift what a speaker actually says. Treat this as a starting point and adjust for the client in front of you.</div>`;
+    wordcardEl.querySelectorAll('.wsym').forEach(b=>b.addEventListener('click',()=>open(b.dataset.s)));
+    return;
+  }
+  const lq=q?q.toLowerCase():'';
+  if(lq&&/^[a-z\-]+$/.test(lq)&&!WORDS[lq]){
+    const sug=Object.keys(WORDS).filter(w=>w.startsWith(lq)).slice(0,10);
+    if(sug.length){
+      wordcardEl.className='wordcard on';
+      wordcardEl.innerHTML=`<div class="wchead">Did you mean</div>
+        <div class="wsug">${sug.map(w=>`<button class="wsugb" data-w="${w}">${w}</button>`).join('')}</div>`;
+      wordcardEl.querySelectorAll('.wsugb').forEach(b=>b.addEventListener('click',()=>{
+        document.getElementById('search').value=b.dataset.w;
+        runSearch(b.dataset.w);
+      }));
+      return;
+    }
+  }
+  wordcardEl.className='wordcard'; wordcardEl.innerHTML='';
+}
+function runSearch(raw){
+  const s=raw.trim();
+  q=s; wordSyms=null; wordQuery=null;
+  if(s){
+    const lw=s.toLowerCase();
+    if(/^[a-z\-]+$/.test(lw)&&WORDS[lw]){
+      wordSyms=WORDS[lw].split(/\s+/).filter(Boolean);
+      wordQuery=lw;
+    }
+  }
+  renderGrid(); renderWordCard();
+}
+function syncPlace(){
+  activeM=reg;
+  document.querySelectorAll('#places .place').forEach(b=>b.classList.toggle('on',b.dataset.id===reg));
+  pillsPlacesEl.querySelectorAll('.pill').forEach(b=>b.classList.toggle('on',b.dataset.reg===reg));
+  for(const k in labEls) labEls[k].classList.toggle('on',k===activeM);
+}
+function setReg(id){ reg=(reg===id)?null:id; syncPlace(); renderGrid(); }
+placesEl.addEventListener('click',e=>{const b=e.target.closest('.place'); if(b) setReg(b.dataset.id);});
+pillsPlacesEl.addEventListener('click',e=>{const b=e.target.closest('.pill'); if(b) setReg(b.dataset.reg);});
+pillsEl.addEventListener('click',e=>{
+  const b=e.target.closest('.pill'); if(!b) return;
+  cat=b.dataset.cat;
+  pillsEl.querySelectorAll('.pill').forEach(x=>x.classList.toggle('on',x===b));
+  renderGrid();
+});
+document.getElementById('search').addEventListener('input',e=>runSearch(e.target.value));
+
+document.getElementById('notes').innerHTML=VARIATION.map(v=>
+  `<div class="note"><h3>${v.t}</h3><p>${v.d}</p><div class="syms">${v.s}</div></div>`).join('');
+document.getElementById('diacs').innerHTML=DIAC.map(d=>
+  `<div class="diac"><b>${d.s}</b><span>${d.d}</span></div>`).join('');
+
+const drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim'),dbody=document.getElementById('dbody');
+function speak(w){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(w);
+  u.lang='en-US'; u.rate=0.8; speechSynthesis.speak(u);
+}
+function open(sym){
+  const p=PH.find(x=>x.s===sym); if(!p) return;
+  const badges=[];
+  if(p.variant) badges.push(['h','Notation variant']);
+  if(p.vc===1) badges.push(['a','Voiced']);
+  if(p.vc===0) badges.push(['h','Voiceless']);
+  if(p.cat==='consonant') badges.push(['','Place · '+p.plc],['','Manner · '+p.mnr],['','Class · Consonant']);
+  else if(p.cat==='diphthong') badges.push(['c','Class · Diphthong'],['','Closing · vowel to glide']);
+  else badges.push(['','Height · '+p.hgt],['','Backness · '+p.bck],['c',p.rnd?'Rounded':'Unrounded'],
+    ['','Class · '+(p.cat==='rhotic'?'Rhotic vowel':'Monophthong')]);
+  const regs=p.reg.map(r=>{const f=PLACES.find(x=>x.id===r);return f?f.nm:r;}).join(' · ');
+  const words=(WORD_INDEX[p.s]||[]).slice(0,10);
+  dbody.innerHTML=`
+    <div class="dsym">${p.s}</div>
+    <div class="dname">${p.nm}</div>
+    <div class="dsub">/${p.s}/ · ${p.cat}</div>
+    <div class="badges">${badges.map(b=>`<span class="bdg ${b[0]}">${b[1]}</span>`).join('')}</div>
+    <div class="dsec"><h4>Example words, click to hear</h4>
+      <div class="words">${p.ex.map(w=>`<span class="word" data-w="${w}"><i>▸</i>${w}</span>`).join('')}</div></div>
+    ${words.length?`<div class="dsec"><h4>More words with this sound</h4>
+      <div class="words">${words.map(w=>`<span class="word" data-w="${w}"><i>▸</i>${w}</span>`).join('')}</div></div>`:''}
+    <div class="dsec"><h4>Common spellings</h4><div class="dspell">${p.sp}</div></div>
+    ${MP[p.s]?`<div class="dsec"><h4>Minimal pair</h4><div class="dpair">${MP[p.s]}</div></div>`:''}
+    <div class="dsec"><h4>Articulation</h4><div class="dnote">${regs}</div></div>
+    <div class="dsec"><h4>Clinical note</h4><div class="dnote">${p.note}</div></div>`;
+  dbody.querySelectorAll('.word').forEach(t=>t.addEventListener('click',()=>speak(t.dataset.w)));
+  drawer.classList.add('open'); scrim.classList.add('on'); drawer.setAttribute('aria-hidden','false');
+  drawer.scrollTop=0;
+}
+function close(){
+  drawer.classList.remove('open'); scrim.classList.remove('on'); drawer.setAttribute('aria-hidden','true');
+}
+document.getElementById('dclose').addEventListener('click',close);
+scrim.addEventListener('click',close);
+addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+gridEl.addEventListener('click',e=>{const c=e.target.closest('.card'); if(c) open(c.dataset.id);});
+
+let velumTarget=0,velumNow=0;
+function driveTongue(sym){
+  const v=VPOS[sym];
+  let f,h;
+  if(v){ f=v[0]; h=v[1]; }
+  else{
+    const d=DIPH.find(x=>x.s===sym);
+    if(d){ f=(d.a[0]+d.b[0])/2; h=(d.a[1]+d.b[1])/2; }
+    else { f=0.48; h=0.44; }
+  }
+  tgtF=Math.max(0,Math.min(1,f));
+  tgtH=Math.max(0,Math.min(1,h));
+  velumTarget=(sym==='ŋ'||sym==='m'||sym==='n')?0.55:0;
+}
+let tongueHold=null;
+const vsvg=document.getElementById('vsvg');
+vsvg.addEventListener('mouseover',e=>{
+  const g=e.target.closest('[data-vs]'); if(g&&!tongueHold) driveTongue(g.dataset.vs);
+});
+vsvg.addEventListener('click',e=>{const g=e.target.closest('[data-vs]'); if(g) open(g.dataset.vs);});
+vlistEl.addEventListener('click',e=>{const b=e.target.closest('.place'); if(b) open(b.dataset.vs);});
+pad.addEventListener('click',e=>{
+  const b=e.target.closest('.vbtn'); if(!b) return;
+  if(tongueHold===b.dataset.tp){
+    tongueHold=null;
+    pad.querySelectorAll('.vbtn').forEach(x=>x.classList.remove('on'));
+    driveTongue('ə');
+    return;
+  }
+  tongueHold=b.dataset.tp;
+  pad.querySelectorAll('.vbtn').forEach(x=>x.classList.toggle('on',x===b));
+  driveTongue(b.dataset.tp);
+});
+
+document.getElementById('toggle').addEventListener('click',e=>{
+  const b=e.target.closest('.tgb'); if(!b) return;
+  b.classList.toggle('on');
+  const on=b.classList.contains('on');
+  const t=b.dataset.t;
+  if(t==='bone') G_BONE.visible=on;
+  if(t==='cart') G_CART.visible=on;
+  if(t==='air')  G_AIR.visible=on;
+  if(t==='phar') G_PHAR.visible=on;
+  if(t==='nasal')G_NASAL.visible=on;
+  if(t==='spine')G_SPINE.visible=on;
+});
+
+document.getElementById('modeswitch').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.m===mode) return;
+  mode=b.dataset.m;
+  document.querySelectorAll('#modeswitch button').forEach(x=>x.classList.toggle('on',x===b));
+  build();
+});
+
+const ray=new THREE.Raycaster();
+const mouse=new THREE.Vector2(-9,-9);
+let hoverM=null,dragging=false,azim=-0.28,elev=0.05,cAz=azim,cEl=elev;
+canvas.addEventListener('pointermove',e=>{
+  const r=canvas.getBoundingClientRect();
+  mouse.x=((e.clientX-r.left)/r.width)*2-1;
+  mouse.y=-((e.clientY-r.top)/r.height)*2+1;
+  if(dragging){
+    azim-=e.movementX*0.0062;
+    elev=Math.max(-0.52,Math.min(0.66,elev+e.movementY*0.0052));
+  }
+});
+canvas.addEventListener('pointerleave',()=>mouse.set(-9,-9));
+canvas.addEventListener('pointerdown',e=>{dragging=true;canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointerup',()=>{dragging=false;});
+canvas.addEventListener('click',()=>{ if(hoverM) setReg(hoverM); });
+
+const pv=new THREE.Vector3();
+let last=performance.now();
+const LOOK=new THREE.Vector3(-0.32,-0.34,0);
+function tick(ts){
+  requestAnimationFrame(tick);
+  const dt=Math.min((ts-last)/1000,0.05); last=ts;
+  const t=ts*0.001;
+
+  if(!dragging) azim+=dt*0.046;
+  cAz+=(azim-cAz)*0.07; cEl+=(elev-cEl)*0.07;
+  const R=16.5;
+  camera.position.set(LOOK.x+Math.sin(cAz)*Math.cos(cEl)*R,
+                      LOOK.y+Math.sin(cEl)*R,
+                      LOOK.z+Math.cos(cAz)*Math.cos(cEl)*R);
+  camera.lookAt(LOOK);
+
+  let ch=false;
+  if(Math.abs(tgtF-curF)>0.0005){ curF+=(tgtF-curF)*0.10; ch=true; }
+  if(Math.abs(tgtH-curH)>0.0005){ curH+=(tgtH-curH)*0.10; ch=true; }
+  if(ch) buildTongue(curF,curH);
+  tongue.position.y=Math.sin(t*1.05)*0.004;
+
+  velumNow+=(velumTarget-velumNow)*0.09;
+  velum.rotation.z=-velumNow*0.55;
+  uvula.rotation.z=-velumNow*0.75;
+  uvula.position.y=-0.84-velumNow*0.06;
+
+  ray.setFromCamera(mouse,camera);
+  const hits=ray.intersectObjects(markers.map(m=>m.group.children[0]),false);
+  hoverM=hits.length?hits[0].object.userData.id:null;
+  canvas.style.cursor=hoverM?'pointer':(dragging?'grabbing':'grab');
+
+  markers.forEach(m=>{
+    const on=(m.id===hoverM||m.id===activeM);
+    const pulse=1+Math.sin(t*2.3+m.group.position.x*3)*0.09;
+    m.group.scale.setScalar(on?1.34:1);
+    m.dot.material.emissiveIntensity=on?2.2:1.0+pulse*0.20;
+  });
+
+  renderer.setRenderTarget(sceneRT);
+  renderer.render(scene,camera);
+
+  if(mode==='plate'){
+    quad.material=plateMat;
+    renderer.setRenderTarget(null);
+    renderer.render(qScene,qCam);
+  }else{
+    quad.material=dsMat;
+    renderer.setRenderTarget(gridRT);
+    renderer.render(qScene,qCam);
+    quad.material=csMat;
+    renderer.setRenderTarget(null);
+    renderer.render(qScene,qCam);
+  }
+
+  const INS=0.07, SPC=1-2*INS;
+  const lines=[];
+  for(const p of PLACES){
+    const mk=markers.find(m=>m.id===p.id);
+    pv.copy(mk.group.position).applyMatrix4(root.matrixWorld).project(camera);
+    const el=labEls[p.id];
+    if(pv.z>1){ el.style.opacity=0; el.style.pointerEvents='none'; continue; }
+    const mx=(INS+(pv.x*0.5+0.5)*SPC)*100;
+    const my=(INS+(-pv.y*0.5+0.5)*SPC)*100;
+    el.style.opacity=1; el.style.pointerEvents='auto';
+    const hot=(p.id===hoverM||p.id===activeM)?' class="hot"':'';
+    lines.push(`<line x1="${mx.toFixed(2)}" y1="${my.toFixed(2)}" x2="${(LAB_SLOT[p.id][0]*100).toFixed(2)}" y2="${(LAB_SLOT[p.id][1]*100).toFixed(2)}"${hot}/>`);
+  }
+  leadEl.innerHTML=lines.join('');
+}
+
+build();
+renderGrid();
+renderWordCard();
+addEventListener('resize',build);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
