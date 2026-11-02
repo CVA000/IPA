@@ -135,16 +135,23 @@ section:nth-of-type(even) .idx{background:var(--blue)}
 .garden{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.85fr);gap:40px;align-items:start}
 @media(max-width:980px){.garden{grid-template-columns:1fr}}
 .garden svg{display:block;width:100%;height:auto;overflow:visible}
-.gquad{fill:#fff;stroke:var(--ink);stroke-width:2.5}
-.ggrid{stroke:rgba(20,20,20,.15);stroke-width:1}
-.gax{font-family:var(--mono);font-size:9px;letter-spacing:.2em;fill:var(--mut)}
-.peb{cursor:pointer}
-.peb ellipse{transition:.12s}
-.peb text{font-family:var(--ipa);font-size:20px;fill:var(--ink);text-anchor:middle;
-  dominant-baseline:central;pointer-events:none}
-.peb:hover ellipse{fill:var(--yellow)}
+.gquad{fill:#fff;stroke:var(--ink);stroke-width:3}
+.ggrid{stroke:rgba(20,20,20,.30);stroke-width:1.5}
+.gdot{fill:var(--ink)}
+.gsym{font-family:var(--ipa);font-size:36px;fill:var(--ink);dominant-baseline:central;transition:fill .12s}
+.gsym.gae{cursor:pointer}
+.gsym.gae:hover{fill:var(--red)}
+.gsym.gaex{display:none}
+.gtitle{font-family:var(--ipa);font-size:26px;letter-spacing:.08em;fill:var(--ink)}
+.gcollab{font-family:var(--ipa);font-size:24px;fill:var(--ink);text-anchor:middle}
+.growlab{font-family:var(--ipa);font-size:24px;fill:var(--ink);text-anchor:start;dominant-baseline:central}
+.gfoot{font-family:var(--ipa);font-size:17px;fill:var(--ink);text-anchor:middle}
 .parrow{stroke:var(--blue);stroke-width:1.5;fill:none;opacity:.85;stroke-dasharray:2 5;stroke-linecap:round}
 .plab{font-family:var(--ipa);font-size:13px;fill:var(--blue);text-anchor:middle}
+#vsvg.gae-only .gsym.off{opacity:.10}
+#vsvg.gae-only .gsym.gaex{display:block}
+#vsvg .vq-diph{display:none}
+#vsvg.show-diph .vq-diph{display:block}
 
 .frow{display:flex;gap:16px;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap}
 .frow .rowlabel{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
@@ -282,7 +289,6 @@ footer li{font-family:var(--mono);font-size:10px;letter-spacing:.04em;line-heigh
   html{scroll-behavior:auto}
 }
 </style>
-</head>
 <body>
 
 <nav class="nav">
@@ -352,16 +358,21 @@ footer li{font-family:var(--mono);font-size:10px;letter-spacing:.04em;line-heigh
       <div class="idx">02</div>
       <div>
         <h2>The <em>Vowel Field</em></h2>
-        <p class="sub">Vowels are not about contact. They live in a space defined by tongue height, backness and lip rounding. Hover any pebble to reshape the tongue in the plate, and click for the full entry.</p>
+        <p class="sub">Vowels are not about contact. They live in a space defined by tongue height, backness and lip rounding. Hover any symbol to reshape the tongue in the plate, and click for the full entry.</p>
       </div>
     </div>
     <div class="garden">
-      <div><svg id="vsvg" viewBox="-14 -22 600 500" role="img" aria-label="Vowel space"></svg></div>
+      <div>
+        <svg id="vsvg" viewBox="0 0 920 920" role="img" aria-label="IPA vowel quadrilateral"></svg>
+        <div class="toggle" id="vqToggle">
+          <button class="tgb" data-vq="gae">GAE only</button>
+          <button class="tgb" data-vq="diph">Diphthongs</button>
+        </div>
+      </div>
       <div class="places" id="vlist"></div>
     </div>
   </div>
 </section>
-
 <section id="inventory">
   <div class="inwrap">
     <div class="sechead">
@@ -450,7 +461,6 @@ footer li{font-family:var(--mono);font-size:10px;letter-spacing:.04em;line-heigh
   <button class="dclose" id="dclose">✕</button>
   <div id="dbody"></div>
 </aside>
-
 <script src="tract_data.js"></script>
 <script type="importmap">
 { "imports": { "three": "https://unpkg.com/three@0.157.0/build/three.module.js" } }
@@ -578,18 +588,47 @@ const PLACES=[
 {id:'tongue',n:'11',nm:'Tongue body',d:'Shapes every vowel by height and backness'}
 ];
 
-const VPOS={
- i:[.06,.04],'ɪ':[.19,.18],e:[.22,.30],'ɛ':[.28,.54],'æ':[.30,.78],
- 'ɑ':[.80,.90],'ɔ':[.84,.62],o:[.82,.32],'ʊ':[.80,.19],u:[.92,.05],
- 'ʌ':[.50,.58],'ə':[.42,.44],'ɝ':[.50,.38],'ɚ':[.62,.50]
-};
-const DIPH=[
- {s:'eɪ',a:[.22,.30],b:[.06,.04],lx:0,ly:-1},
- {s:'aɪ',a:[.52,.90],b:[.06,.04],lx:-1,ly:1},
- {s:'ɔɪ',a:[.84,.62],b:[.19,.18],lx:1,ly:-1},
- {s:'oʊ',a:[.82,.32],b:[.92,.05],lx:1,ly:0},
- {s:'aʊ',a:[.52,.90],b:[.92,.05],lx:0,ly:1}
+/* ============ 02 · VOWEL QUADRILATERAL ============ */
+/* 920 × 920 viewBox. Corners: i top-left, u top-right, a bottom-left, ɒ bottom-right. */
+const VQ_ROW=[180,372,563,755];
+const VQ_FX=r=>240+95*r;
+const VQ_BX=r=>820-1.7*r;
+const VQ_CX=r=>(VQ_FX(r)+VQ_BX(r))/2;
+const vqY=r=>{const i=Math.min(2,Math.floor(r));return VQ_ROW[i]+(VQ_ROW[i+1]-VQ_ROW[i])*(r-i);};
+const vqX=(c,r)=>{const f=VQ_FX(r),m=VQ_CX(r),b=VQ_BX(r);return c<=1?f+(m-f)*c:m+(b-m)*(c-1);};
+
+/* sym · column (0 front, 1 central, 2 back) · row (0 close … 3 open)
+   · side (-1 left of dot, +1 right of dot, 0 no dot) · in the GAE inventory */
+const VQ=[
+  ['i',0,0,-1,1],['y',0,0,1,0],
+  ['ɨ',1,0,-1,0],['ʉ',1,0,1,0],
+  ['ɯ',2,0,-1,0],['u',2,0,1,1],
+  ['ɪ',0,0.5,0,1],['ʊ',2,0.5,0,1],
+  ['e',0,1,-1,1],['ø',0,1,1,0],
+  ['ɘ',1,1,-1,0],['ɵ',1,1,1,0],
+  ['ɤ',2,1,-1,0],['o',2,1,1,1],
+  ['ə',1,1.5,0,1],
+  ['ɛ',0,2,-1,1],['œ',0,2,1,0],
+  ['ɜ',1,2,-1,0],['ɞ',1,2,1,0],
+  ['ʌ',2,2,-1,1],['ɔ',2,2,1,1],
+  ['æ',0.25,2.8,0,1],
+  ['a',0,3,-1,0],['ɐ',1,3,-1,0],
+  ['ɑ',2,3,-1,1],['ɒ',2,3,1,0],
+  ['ɝ',1,1.25,0,1],['ɚ',1,1.75,0,1]
 ];
+const VQ_EXTRA=new Set(['ɪ','ʊ','ɝ','ɚ']);   // GAE symbols absent from the reference plate
+
+const VPOS={};
+VQ.forEach(([s,c,r])=>{ if(!(s in VPOS)) VPOS[s]=[c/2,r/3]; });
+
+const DIPH=[
+  {s:'eɪ',a:'e',b:'i'},
+  {s:'aɪ',a:'a',b:'i'},
+  {s:'ɔɪ',a:'ɔ',b:'ɪ'},
+  {s:'oʊ',a:'o',b:'u'},
+  {s:'aʊ',a:'a',b:'u'}
+];
+
 const MP={
  p:'pin / bin',b:'bin / pin',t:'tie / die',d:'die / tie',k:'coat / goat','ɡ':'goat / coat',
  f:'fine / vine',v:'vine / fine','θ':'thin / tin','ð':'they / day',s:'sue / zoo',z:'zoo / sue',
@@ -627,7 +666,6 @@ const DIAC=[
 {s:'[‿]',d:'Linking mark, joining words pronounced without a pause: an‿apple.'},
 {s:'[ ̚]',d:'Unreleased, a stop with no audible burst. The final /t/ in cat.'}
 ];
-
 const maxBy=(arr,fn)=>arr.reduce((a,b)=>fn(b)>fn(a)?b:a);
 const centroid=poly=>{let x=0,y=0;for(const p of poly){x+=p[0];y+=p[1];}return [x/poly.length,y/poly.length];};
 
@@ -802,49 +840,72 @@ const pad=document.getElementById('tonguePad');
   b.className='vbtn'; b.dataset.tp=s; b.textContent=s;
   pad.appendChild(b);
 });
-const TL=[100,60],TR=[400,60],BR=[460,400],BL=[60,400];
-function projV(f,h){
-  const x=(1-h)*((1-f)*TL[0]+f*TR[0])+h*((1-f)*BL[0]+f*BR[0]);
-  return [x,60+h*340];
-}
+
+/* ---------- vowel quadrilateral builder ---------- */
 (function(){
   const svg=document.getElementById('vsvg');
+  const P=(c,r)=>[vqX(c,r),vqY(r)];
+  const posOf=s=>{const e=VQ.find(v=>v[0]===s);return e?P(e[1],e[2]):null;};
   let o='';
-  o+=`<path class="gquad" d="M ${TL[0]} ${TL[1]} L ${TR[0]} ${TR[1]} L ${BR[0]} ${BR[1]} L ${BL[0]} ${BL[1]} Z"/>`;
-  for(let i=1;i<4;i++){
-    const h=i/4,a=projV(0,h),b=projV(1,h);
-    o+=`<line class="ggrid" x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;
-  }
-  for(let i=1;i<3;i++){
-    const f=i/3,a=projV(f,0),b=projV(f,1);
-    o+=`<line class="ggrid" x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;
-  }
-  o+=`<text class="gax" x="${TL[0]}" y="36">FRONT</text>`;
-  o+=`<text class="gax" x="${TR[0]}" y="36" text-anchor="end">BACK</text>`;
-  o+=`<text class="gax" x="20" y="${TL[1]}" text-anchor="middle" transform="rotate(-90 20 ${TL[1]})">CLOSE</text>`;
-  o+=`<text class="gax" x="20" y="${BL[1]}" text-anchor="middle" transform="rotate(-90 20 ${BL[1]})">OPEN</text>`;
-  o+=`<defs><marker id="ga" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2350a0"/></marker></defs>`;
+
+  o+=`<defs><marker id="vqa" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2350a0"/></marker></defs>`;
+
+  o+=`<path class="gquad" d="M ${VQ_FX(0)} ${VQ_ROW[0]} L ${VQ_BX(0)} ${VQ_ROW[0]} L ${VQ_BX(3)} ${VQ_ROW[3]} L ${VQ_FX(3)} ${VQ_ROW[3]} Z"/>`;
+  for(let r=1;r<3;r++)
+    o+=`<line class="ggrid" x1="${VQ_FX(r)}" y1="${VQ_ROW[r]}" x2="${VQ_BX(r)}" y2="${VQ_ROW[r]}"/>`;
+  o+=`<line class="ggrid" x1="${VQ_CX(0)}" y1="${VQ_ROW[0]}" x2="${VQ_CX(3)}" y2="${VQ_ROW[3]}"/>`;
+
+  const seen=new Set();
+  VQ.forEach(([s,c,r,side])=>{
+    if(!side) return;
+    const k=c+'|'+r; if(seen.has(k)) return; seen.add(k);
+    const [x,y]=P(c,r);
+    o+=`<circle class="gdot" cx="${x}" cy="${y}" r="4.5"/>`;
+  });
+
+  VQ.forEach(([s,c,r,side,gae])=>{
+    const [x,y]=P(c,r);
+    const tx=side<0?x-15:side>0?x+15:x;
+    const an=side<0?'end':side>0?'start':'middle';
+    const cls='gsym'+(gae?' gae':' off')+(VQ_EXTRA.has(s)?' gaex':'');
+    o+=`<text class="${cls}" x="${tx}" y="${y}" text-anchor="${an}" data-vs="${s}">${s}</text>`;
+  });
+
+  o+=`<text class="gtitle" x="30" y="48">VOWELS</text>`;
+  o+=`<text class="gcollab" x="${VQ_FX(0)}" y="104">Front</text>`;
+  o+=`<text class="gcollab" x="${VQ_CX(0)}" y="104">Central</text>`;
+  o+=`<text class="gcollab" x="${VQ_BX(0)}" y="104">Back</text>`;
+  ['Close','Close-mid','Open-mid','Open'].forEach((t,i)=>{
+    o+=`<text class="growlab" x="30" y="${VQ_ROW[i]}">${t}</text>`;
+  });
+
+  o+=`<g class="vq-diph">`;
   DIPH.forEach(d=>{
-    const a=projV(d.a[0],d.a[1]),b=projV(d.b[0],d.b[1]);
-    const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;
-    const sx=a[0]+ux*26,sy=a[1]+uy*26,ex=b[0]-ux*26,ey=b[1]-uy*26;
-    const px=-uy,py=ux,cx=(sx+ex)/2+px*22,cy=(sy+ey)/2+py*22;
-    o+=`<g class="peb" data-vs="${d.s}">
-      <path class="parrow" d="M ${sx} ${sy} Q ${cx} ${cy} ${ex} ${ey}" marker-end="url(#ga)"/>
-      <text class="plab" x="${cx+d.lx*14}" y="${cy+d.ly*18}">${d.s}</text>
-      <ellipse cx="${b[0]}" cy="${b[1]}" rx="18" ry="16" fill="transparent"/>
-    </g>`;
+    const A=posOf(d.a),B=posOf(d.b); if(!A||!B) return;
+    const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy)||1;
+    const ux=dx/L,uy=dy/L,px=-uy,py=ux;
+    const sx=A[0]+ux*34,sy=A[1]+uy*34,ex=B[0]-ux*34,ey=B[1]-uy*34;
+    const mx=(sx+ex)/2+px*30,my=(sy+ey)/2+py*30;
+    o+=`<path class="parrow" d="M ${sx} ${sy} Q ${mx} ${my} ${ex} ${ey}" marker-end="url(#vqa)"/>`;
+    o+=`<text class="plab" x="${mx+px*18}" y="${my+py*18}">${d.s}</text>`;
   });
-  Object.keys(VPOS).forEach(s=>{
-    const v=VPOS[s],pt=projV(v[0],v[1]);
-    o+=`<g class="peb" data-vs="${s}">
-      <ellipse cx="${pt[0]}" cy="${pt[1]}" rx="19" ry="17" fill="#fff" stroke="rgba(20,20,20,.5)" stroke-width="1.5"/>
-      <text x="${pt[0]}" y="${pt[1]}">${s}</text>
-    </g>`;
-  });
+  o+=`</g>`;
+
+  o+=`<text class="gfoot" x="460" y="852">Where symbols appear in pairs, the one</text>`;
+  o+=`<text class="gfoot" x="460" y="882">to the right represents a rounded vowel.</text>`;
+
   svg.innerHTML=o;
 })();
 
+document.getElementById('vqToggle').addEventListener('click',e=>{
+  const b=e.target.closest('.tgb'); if(!b) return;
+  b.classList.toggle('on');
+  const svg=document.getElementById('vsvg');
+  if(b.dataset.vq==='gae') svg.classList.toggle('gae-only',b.classList.contains('on'));
+  else svg.classList.toggle('show-diph',b.classList.contains('on'));
+});
+
+/* ---------- tract labels ---------- */
 const LAB_SIDE={
   bilabial:'r', labiodental:'r', dental:'r', alveolar:'r',
   postalveolar:'t', palatal:'t', velar:'t',
@@ -1045,16 +1106,14 @@ addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
 gridEl.addEventListener('click',e=>{const c=e.target.closest('.card'); if(c) open(c.dataset.id);});
 
 function driveTongue(sym){
-  const v=VPOS[sym];
-  let f,h;
-  if(v){ f=v[0]; h=v[1]; }
-  else{
+  let v=VPOS[sym];
+  if(!v){
     const d=DIPH.find(x=>x.s===sym);
-    if(d){ f=(d.a[0]+d.b[0])/2; h=(d.a[1]+d.b[1])/2; }
-    else { f=0.48; h=0.44; }
+    if(d){const A=VPOS[d.a],B=VPOS[d.b];v=[(A[0]+B[0])/2,(A[1]+B[1])/2];}
   }
-  tgtF=Math.max(0,Math.min(1,f));
-  tgtH=Math.max(0,Math.min(1,h));
+  if(!v) v=[0.5,0.5];
+  tgtF=Math.max(0,Math.min(1,v[0]));
+  tgtH=Math.max(0,Math.min(1,v[1]));
 }
 let tongueHold=null;
 const vsvg=document.getElementById('vsvg');
