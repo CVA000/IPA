@@ -14,7 +14,7 @@
   --red:#d0342c; --blue:#2350a0; --yellow:#f2c500; --soft:#fdf6d8;
   --disp:'Jost',system-ui,sans-serif;
   --sans:'Jost',system-ui,sans-serif;
-  --mono:'Space Mono',monospace; --ipa:'Gentium Book Plus',Georgia,serif;
+  --mono:'Jost',system-ui,sans-serif; --ipa:'Gentium Book Plus',Georgia,serif;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);color:var(--ink);line-height:1.6;background:var(--paper);
@@ -138,9 +138,9 @@ section:nth-of-type(even) .idx{background:var(--blue)}
 .gquad{fill:#fff;stroke:var(--ink);stroke-width:3}
 .ggrid{stroke:rgba(20,20,20,.30);stroke-width:1.5}
 .gdot{fill:var(--ink)}
-.gsym{font-family:var(--ipa);font-size:36px;fill:var(--ink);dominant-baseline:central;transition:fill .12s}
-.gsym.gae{cursor:pointer}
+.gsym{font-family:var(--ipa);font-size:36px;fill:var(--ink);dominant-baseline:central;transition:fill .12s;cursor:pointer}
 .gsym.gae:hover{fill:var(--red)}
+.gsym.off:hover{fill:var(--blue)}
 .gsym.gaex{display:none}
 .gtitle{font-family:var(--ipa);font-size:26px;letter-spacing:.08em;fill:var(--ink)}
 .gcollab{font-family:var(--ipa);font-size:24px;fill:var(--ink);text-anchor:middle}
@@ -588,8 +588,7 @@ const PLACES=[
 {id:'tongue',n:'11',nm:'Tongue body',d:'Shapes every vowel by height and backness'}
 ];
 
-/* ============ 02 · VOWEL QUADRILATERAL ============ */
-/* 920 × 920 viewBox. Corners: i top-left, u top-right, a bottom-left, ɒ bottom-right. */
+
 const VQ_ROW=[180,372,563,755];
 const VQ_FX=r=>240+95*r;
 const VQ_BX=r=>820-1.7*r;
@@ -597,8 +596,7 @@ const VQ_CX=r=>(VQ_FX(r)+VQ_BX(r))/2;
 const vqY=r=>{const i=Math.min(2,Math.floor(r));return VQ_ROW[i]+(VQ_ROW[i+1]-VQ_ROW[i])*(r-i);};
 const vqX=(c,r)=>{const f=VQ_FX(r),m=VQ_CX(r),b=VQ_BX(r);return c<=1?f+(m-f)*c:m+(b-m)*(c-1);};
 
-/* sym · column (0 front, 1 central, 2 back) · row (0 close … 3 open)
-   · side (-1 left of dot, +1 right of dot, 0 no dot) · in the GAE inventory */
+
 const VQ=[
   ['i',0,0,-1,1],['y',0,0,1,0],
   ['ɨ',1,0,-1,0],['ʉ',1,0,1,0],
@@ -611,12 +609,13 @@ const VQ=[
   ['ɛ',0,2,-1,1],['œ',0,2,1,0],
   ['ɜ',1,2,-1,0],['ɞ',1,2,1,0],
   ['ʌ',2,2,-1,1],['ɔ',2,2,1,1],
-  ['æ',0.25,2.8,0,1],
-  ['a',0,3,-1,0],['ɐ',1,3,-1,0],
+  ['æ',0.12,2.75,0,1],
+  ['a',0,3,-1,0],['ɐ',0.9,2.8,0,0],
   ['ɑ',2,3,-1,1],['ɒ',2,3,1,0],
   ['ɝ',1,1.25,0,1],['ɚ',1,1.75,0,1]
 ];
-const VQ_EXTRA=new Set(['ɪ','ʊ','ɝ','ɚ']);   // GAE symbols absent from the reference plate
+const VQ_EXTRA=new Set(['ɪ','ʊ','ɝ','ɚ']);
+const VQ_DOTS=[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[0,3],[1,3],[2,3]];
 
 const VPOS={};
 VQ.forEach(([s,c,r])=>{ if(!(s in VPOS)) VPOS[s]=[c/2,r/3]; });
@@ -841,7 +840,6 @@ const pad=document.getElementById('tonguePad');
   pad.appendChild(b);
 });
 
-/* ---------- vowel quadrilateral builder ---------- */
 (function(){
   const svg=document.getElementById('vsvg');
   const P=(c,r)=>[vqX(c,r),vqY(r)];
@@ -855,10 +853,7 @@ const pad=document.getElementById('tonguePad');
     o+=`<line class="ggrid" x1="${VQ_FX(r)}" y1="${VQ_ROW[r]}" x2="${VQ_BX(r)}" y2="${VQ_ROW[r]}"/>`;
   o+=`<line class="ggrid" x1="${VQ_CX(0)}" y1="${VQ_ROW[0]}" x2="${VQ_CX(3)}" y2="${VQ_ROW[3]}"/>`;
 
-  const seen=new Set();
-  VQ.forEach(([s,c,r,side])=>{
-    if(!side) return;
-    const k=c+'|'+r; if(seen.has(k)) return; seen.add(k);
+  VQ_DOTS.forEach(([c,r])=>{
     const [x,y]=P(c,r);
     o+=`<circle class="gdot" cx="${x}" cy="${y}" r="4.5"/>`;
   });
@@ -905,7 +900,6 @@ document.getElementById('vqToggle').addEventListener('click',e=>{
   else svg.classList.toggle('show-diph',b.classList.contains('on'));
 });
 
-/* ---------- tract labels ---------- */
 const LAB_SIDE={
   bilabial:'r', labiodental:'r', dental:'r', alveolar:'r',
   postalveolar:'t', palatal:'t', velar:'t',
@@ -1068,8 +1062,26 @@ function speak(w){
   const u=new SpeechSynthesisUtterance(w);
   u.lang='en-US'; u.rate=0.8; speechSynthesis.speak(u);
 }
+const VQ_ROWNAME=['Close','Close-mid','Open-mid','Open'];
+const VQ_COLNAME=['Front','Central','Back'];
+function openVQ(sym){
+  const e=VQ.find(v=>v[0]===sym); if(!e) return;
+  const [,c,r,side]=e;
+  const col=VQ_COLNAME[Math.round(c)];
+  const row=VQ_ROWNAME[Math.min(3,Math.round(r))];
+  const rnd=side>0?'rounded':'unrounded';
+  dbody.innerHTML=`
+    <div class="dsym">${sym}</div>
+    <div class="dname">${row} ${col.toLowerCase()} ${rnd} vowel</div>
+    <div class="dsub">/${sym}/ · not in General American</div>
+    <div class="badges"><span class="bdg h">Reference only</span></div>
+    <div class="dsec"><h4>Status</h4><div class="dnote">This symbol is on the full IPA vowel chart for orientation. It is not a phoneme of General American English, so there are no example words or clinical note for it here.</div></div>`;
+  drawer.classList.add('open'); scrim.classList.add('on'); drawer.setAttribute('aria-hidden','false');
+  drawer.scrollTop=0;
+}
 function open(sym){
-  const p=PH.find(x=>x.s===sym); if(!p) return;
+  const p=PH.find(x=>x.s===sym);
+  if(!p){ openVQ(sym); return; }
   const badges=[];
   if(p.variant) badges.push(['h','Notation variant']);
   if(p.vc===1) badges.push(['a','Voiced']);
